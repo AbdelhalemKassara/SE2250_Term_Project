@@ -8,11 +8,16 @@ Library/
 Assets/AssetStoreTools*
 Logs/
 UserSettings/
+Build/
+Builds/
+*.pidb.meta
+sysinfo.txt
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
 ExportedObj/
+.consulo/
 *.svd
 *.userprefs
 *.csproj
@@ -22,6 +27,9 @@ ExportedObj/
 *.user
 *.unityproj
 *.booproj
+*.tmp
+*.pdb
+/.vs/
 
 # ============ #
 # OS generated #
