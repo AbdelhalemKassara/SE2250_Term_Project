@@ -1,0 +1,3 @@
+# this prevents git from changing asset and meta files line endings
+*.asset -text
+*.meta -text
