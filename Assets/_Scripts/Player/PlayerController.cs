@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
   void Update()
   {
     Vector3 move = Vector3.zero;
-    float speed = 16f;
+    float speed = 8f;
     if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
     {
       move = move - _player.transform.right;
