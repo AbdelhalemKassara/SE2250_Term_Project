@@ -7,11 +7,14 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
   private GameObject _player;
+  private Rigidbody _rigidBody;
+
   private bool rightButtonDown = false;
 
   void Start()
   {
     _player = gameObject;
+    _rigidBody = GetComponent<Rigidbody>();
   }
 
 
@@ -39,20 +42,20 @@ public class PlayerController : MonoBehaviour
     {
       move = move - _player.transform.forward;
     }
-    _player.transform.position = _player.transform.position + Vector3.Normalize(move) * speed * Time.deltaTime;
-
+   
+    _rigidBody.velocity = Vector3.Normalize(move) * speed;
 
     // Rotate Player
     rightButtonDown = Input.GetMouseButtonDown(1);
   }
 
-    void OnGUI()
+  void OnGUI()
+  {
+    Event e = Event.current;
+    if (e.isMouse)
     {
-        Event e = Event.current;
-        if (e.isMouse )
-        {
-            Debug.Log(e.delta);
-            _player.transform.Rotate(new Vector3(0, e.delta.x * 0.5f, 0));
-        }
+      Debug.Log(e.delta);
+      _player.transform.Rotate(new Vector3(0, e.delta.x * 0.5f, 0));
     }
+  }
 }
