@@ -1,3 +1,4 @@
 # this prevents git from changing asset and meta files line endings
 *.asset -text
 *.meta -text
+*.png filter=lfs diff=lfs merge=lfs -text
