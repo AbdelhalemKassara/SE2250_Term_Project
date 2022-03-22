@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
         //Send the message to the Animator to activate the trigger parameter named "Jump"
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Pressed primary button.");
+            // Debug.Log("Pressed primary button.");
             _attack.BasicAttack(_animator);
             StartCoroutine(StartAttackDebounce());
 
@@ -118,14 +118,10 @@ public class PlayerController : MonoBehaviour
     {
         _attacking = true;
 
-        //Print the time of when the function is first called.
-        Debug.Log("Started Coroutine at timestamp : " + Time.time);
-
         //yield on a new YieldInstruction that waits for .5 seconds.
         yield return new WaitForSeconds(.5f);
 
         //After we have waited .5 seconds print the time again.
-        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
 
         _attacking = false;
     }
@@ -135,7 +131,7 @@ public class PlayerController : MonoBehaviour
         Event e = Event.current;
         if (e.isMouse)
         {
-            Debug.Log(e.delta);
+            // Debug.Log(e.delta);
             _player.transform.Rotate(new Vector3(0, e.delta.x * 0.5f, 0));
         }
     }
