@@ -273,6 +273,7 @@ GameObject:
   - component: {fileID: 6558862018247994986}
   - component: {fileID: 6541967256915849264}
   - component: {fileID: 1849669862471089856}
+  - component: {fileID: 5286321410649879807}
   m_Layer: 0
   m_Name: usethis_monster_orc
   m_TagString: Untagged
@@ -335,7 +336,7 @@ MonoBehaviour:
   runForward: Monster_anim|Run
   hitFront: Monster_anim|Get_hit
   blockAttack: Monster_anim|Block
-  attack: Monster_anim|Attack
+  attack: Monster_anim|Atack
   die: Monster_anim|Death
   idle: Monster_anim|Idle_2
 --- !u!114 &6558862018247994986
@@ -438,10 +439,26 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.1
+  m_Radius: 0.25
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &5286321410649879807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342959200176554030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262cfde91d7df4e39b9c80d52951687c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: 0
+  health: 0
+  attackPower: 0
+  btwnAttacksTime: 2
 --- !u!1 &1576848682820892603
 GameObject:
   m_ObjectHideFlags: 0

@@ -1040,6 +1040,7 @@ GameObject:
   - component: {fileID: 2143199044592314480}
   - component: {fileID: 8782246108362147166}
   - component: {fileID: 3971622916638073048}
+  - component: {fileID: 1633099356731604804}
   m_Layer: 0
   m_Name: MK_UseThis
   m_TagString: Untagged
@@ -1178,10 +1179,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1
+  m_Radius: 0.25
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &3971622916638073048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1202,6 +1203,22 @@ MonoBehaviour:
   attack: MK_quickSwipe
   die: MK_bigCollapse
   idle: Idle
+--- !u!114 &1633099356731604804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262cfde91d7df4e39b9c80d52951687c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: 0
+  health: 0
+  attackPower: 0
+  btwnAttacksTime: 1
 --- !u!1 &169588
 GameObject:
   m_ObjectHideFlags: 0

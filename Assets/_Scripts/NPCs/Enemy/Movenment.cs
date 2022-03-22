@@ -22,17 +22,18 @@ public class Movenment : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        target = player.GetComponent<Transform>().position - invertFace * Vector3.Normalize(playerDirection) * offsetDist;
     }
 
     // Update is called once per frame
     void Update()
     {
         playerDirection = player.GetComponent<Transform>().position - transform.position;
+
+        //some of the assets faces are facing the opposite direction
         playerDirection *= invertFace;
-        //some of the assets are flipped the other way
 
         target = player.GetComponent<Transform>().position - invertFace * Vector3.Normalize(playerDirection) * offsetDist;
-
         //when the player is in range
         float stopDist = (target - transform.position).magnitude;
         if (playerDirection.magnitude <= triggerDist && stopDist > offsetDist)
@@ -44,7 +45,6 @@ public class Movenment : MonoBehaviour
         {
             lookAtPlayer();
             rotateBodyTowardsPlayer();
-            GetComponent<Animation>().Idle();
         } else
         {
             GetComponent<Animation>().Idle();
@@ -69,6 +69,11 @@ public class Movenment : MonoBehaviour
         //this sets the target position from the player
         transform.position = Vector3.MoveTowards(transform.position, target, movenmentSpeed * Time.deltaTime);
         GetComponent<Animation>().WalkForward();
+    }
+
+    public bool canAttack()
+    {
+        return (target - transform.position).magnitude <= offsetDist;
     }
 
 }
