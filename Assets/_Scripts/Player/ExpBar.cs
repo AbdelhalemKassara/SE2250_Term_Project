@@ -13,14 +13,11 @@ public class ExpBar : MonoBehaviour
     void Update()
     {
         RectTransform panelRectTransform = panel.GetComponent<RectTransform>();
-        // panelRectTransform.Scale.Set(PlayerStats.stats.getHealthPercentage(), panelRectTransform.Scale.y);
         panelRectTransform.localScale = new Vector3(
             PlayerStats.stats.getExpPercentage(),
             1.0f,
             1.0f
-        ); //This works
+        ); 
 
-        Debug.Log("Exp %: " + PlayerStats.stats.getExpPercentage());
-        // xPos is the placement of the components.
     }
 }

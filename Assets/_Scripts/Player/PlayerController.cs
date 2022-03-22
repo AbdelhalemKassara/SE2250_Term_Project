@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -79,7 +80,7 @@ public class PlayerController : MonoBehaviour
         // _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
 
         // Rotate Player
-        rightButtonDown = Input.GetMouseButtonDown(1);
+        rightButtonDown = Input.GetMouseButtonDown(1) &&! IsPointerOverUIObject();
 
         HandleAttacks();
     }
@@ -90,7 +91,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         //Send the message to the Animator to activate the trigger parameter named "Jump"
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !IsPointerOverUIObject())
         {
             // Debug.Log("Pressed primary button.");
             _attack.BasicAttack(_animator);
@@ -129,11 +130,23 @@ public class PlayerController : MonoBehaviour
     void OnGUI()
     {
         Event e = Event.current;
-        if (e.isMouse)
+        if (e.isMouse && !IsPointerOverUIObject())
         {
             // Debug.Log(e.delta);
             _player.transform.Rotate(new Vector3(0, e.delta.x * 0.5f, 0));
         }
+    }
+
+    public static bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(
+            Input.mousePosition.x,
+            Input.mousePosition.y
+        );
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 }
 

@@ -13,14 +13,11 @@ public class HealthBar : MonoBehaviour
     void Update()
     {
         RectTransform panelRectTransform = panel.GetComponent<RectTransform>();
-        // panelRectTransform.Scale.Set(PlayerStats.stats.getHealthPercentage(), panelRectTransform.Scale.y);
         panelRectTransform.localScale = new Vector3(
             PlayerStats.stats.getHealthPercentage(),
             1.0f,
             1.0f
-        ); //This works
+        );
 
-        Debug.Log("HP %: " + PlayerStats.stats.getHealthPercentage());
-        // xPos is the placement of the components.
     }
 }

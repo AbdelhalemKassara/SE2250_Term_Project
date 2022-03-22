@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MercenaryAttacks : MonoBehaviour, IAttacks
+public class MercenaryAttacks : IAttacks
 {
-    private bool _attacking = false;
-
     public void BasicAttack(Animator animator)
     {
         if (animator.GetBool("swordSlash"))
@@ -33,21 +31,7 @@ public class MercenaryAttacks : MonoBehaviour, IAttacks
             && !animator.IsInTransition(0)
         )
             return;
-        Debug.Log("swordFlip");
         animator.SetTrigger("swordFlip");
     }
 
-    IEnumerator FinishAttack()
-    {
-        //Print the time of when the function is first called.
-        Debug.Log("Started Coroutine at timestamp : " + Time.time);
-
-        //yield on a new YieldInstruction that waits for .5 seconds.
-        yield return new WaitForSeconds(.5f);
-
-        //After we have waited .5 seconds print the time again.
-        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
-
-        _attacking = false;
-    }
 }
