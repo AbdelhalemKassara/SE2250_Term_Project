@@ -35,5 +35,10 @@ public class AnimationController : MonoBehaviour
     {
         animator.CrossFade("MK_bigCollapse", 0f);
     }
+
+    public void idle()
+    {
+        animator.CrossFade("Idle", 0f);
+    }
     
 }

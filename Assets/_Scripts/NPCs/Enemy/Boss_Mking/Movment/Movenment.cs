@@ -5,15 +5,67 @@ using UnityEngine;
 public class Movenment : MonoBehaviour
 {
     public GameObject player;
+    public GameObject lookingAt;
+
+    public float rotationSpeed;
+    public float movenmentSpeed;
+
+    public float offsetDist;
+    public float triggerDist;
+
+
+    private Vector3 target;
+    private Vector3 playerDirection;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        playerDirection = transform.position - player.GetComponent<Transform>().position;
+        target = player.GetComponent<Transform>().position + Vector3.Normalize(playerDirection) * offsetDist;
+
+        //when the player is in range
+        float stopDist = (target - transform.position).magnitude;
+        if (playerDirection.magnitude <= triggerDist && stopDist > offsetDist)
+        {
+            lookAtPlayer();
+            rotateBodyTowardsPlayer();
+            moveTowardsPlayer();
+            Debug.Log(Vector3.Normalize(playerDirection));
+        } else if(stopDist <= offsetDist) 
+        {
+            lookAtPlayer();
+            rotateBodyTowardsPlayer();
+            GetComponent<AnimationController>().idle();
+        } else
+        {
+            GetComponent<AnimationController>().idle();
+        }
     }
+
+    private void lookAtPlayer()
+    {
+        Vector3 temp = player.GetComponent<Transform>().position;
+        temp.y += 1.5f;//temporarly offsets to look at players face
+        lookingAt.GetComponent<Transform>().position = temp;
+    }
+
+    private void rotateBodyTowardsPlayer()
+    {
+        Vector3 direction = Vector3.RotateTowards(transform.forward, playerDirection, rotationSpeed * Time.deltaTime, 0.0f);
+        transform.rotation = Quaternion.LookRotation(direction);
+    }
+
+    private void moveTowardsPlayer()
+    {
+        //this sets the target position from the player
+        transform.position = Vector3.MoveTowards(transform.position, target, movenmentSpeed * Time.deltaTime);
+        GetComponent<AnimationController>().walkForward();
+    }
+
 }
