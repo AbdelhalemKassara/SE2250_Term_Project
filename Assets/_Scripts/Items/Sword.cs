@@ -7,6 +7,10 @@ public interface ISword
     Object getSwordObject();
     string getName();
 }
+public interface IWeapon
+{
+    int getAttack();
+}
 
 public class Sword : MonoBehaviour, ISword
 {

@@ -11,7 +11,7 @@ public class PlayerStats : MonoBehaviour
     private int _str = 0;
     private int _int = 0;
     private int _dex = 0;
-    
+
     private int _availableStats = 0;
     private int _addSta = 0;
     private int _addStr = 0;
@@ -21,7 +21,7 @@ public class PlayerStats : MonoBehaviour
     private int _level = 1;
     private int _exp = 0;
     private int _maxExp = 100;
-    private int _hp = 100;
+    public int _hp = 100;
     private int _maxHp = 100;
 
     public TextMeshProUGUI levelGUI;
@@ -36,6 +36,18 @@ public class PlayerStats : MonoBehaviour
     public TextMeshProUGUI addIntGUI;
     public TextMeshProUGUI addDexGUI;
     public TextMeshProUGUI statPointsGUI;
+
+    public bool IsDead()
+    {
+        return _hp <= 0;
+    }
+
+    public void Reset()
+    {
+        _hp = (int)getMaxHp();
+        _maxHp = (int)getMaxHp();
+        _maxExp = (int)getMaxExp();
+    }
 
     private void Awake()
     {
@@ -56,6 +68,8 @@ public class PlayerStats : MonoBehaviour
     // Check what keys are being pressed to move the player.
     void Update()
     {
+        if (_hp == 0) DamagePlayer(0);
+
         levelGUI.text = "Level " + _level;
         hpGUI.text = "HP: " + _hp + " / " + _maxHp;
         expGUI.text = "EXP: " + _exp + " / " + _maxExp;
@@ -104,12 +118,38 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    public void DamagePlayer(int hp)
+    {
+        if (IsDead()) return;
+        _hp -= hp;
+        if (_hp <= 0)
+        {
+            PlayerController.getAnimations().Death(PlayerController.getAnimator());
+            Debug.Log("Death");
+            _hp = 0;
+            StartCoroutine(Respawn());
+        }
+    }
+
+    IEnumerator Respawn()
+    {
+        //yield on a new YieldInstruction that waits for .5 seconds.
+        yield return new WaitForSeconds(3f);
+        Debug.Log("Waited 3 seconds");
+        // PlayerController.controller.Respawn();
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Waited 1 seconds");
+        _hp = (int) getMaxHp();
+        PlayerController.getAnimations().Idle(PlayerController.getAnimator());
+    }
+
     IEnumerator ExpTest()
     {
-        GiveExp(10);
+        DamagePlayer(10);
         //yield on a new YieldInstruction that waits for .5 seconds.
         yield return new WaitForSeconds(1f);
 
+        if (IsDead()) yield break;
         StartCoroutine(ExpTest());
     }
 
@@ -207,6 +247,6 @@ public class PlayerStats : MonoBehaviour
         _addInt = 0;
         _addDex = 0;
 
-        _maxHp = (int) getMaxHp();
+        _maxHp = (int)getMaxHp();
     }
 }

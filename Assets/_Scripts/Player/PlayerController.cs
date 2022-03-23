@@ -6,18 +6,35 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController controller;
+
     private GameObject _player;
     private Rigidbody _rigidBody;
-    private Animator _animator;
+    private static Animator _animator;
     private bool _attacking = false;
 
-    private IAttacks _attack = new MercenaryAttacks();
+    private static IAttacks _attack = new MercenaryAttacks();
 
     private bool rightButtonDown = false;
+
+    public static IAttacks getAnimations()
+    {
+        return _attack;
+    }
+
+    public static Animator getAnimator()
+    {
+        return _animator;
+    }
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        controller = this;
+    }
+
+    public void Respawn() {
+        _attack.Idle(_animator);
     }
 
     void Start()
@@ -29,6 +46,9 @@ public class PlayerController : MonoBehaviour
     // Check what keys are being pressed to move the player.
     void Update()
     {
+        if (PlayerStats.stats.IsDead())
+            return;
+
         Vector3 move = Vector3.zero;
         float speed = 8f;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
@@ -80,7 +100,7 @@ public class PlayerController : MonoBehaviour
         // _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
 
         // Rotate Player
-        rightButtonDown = Input.GetMouseButtonDown(1) &&! IsPointerOverUIObject();
+        rightButtonDown = Input.GetMouseButtonDown(1) && !IsPointerOverUIObject();
 
         HandleAttacks();
     }
@@ -129,6 +149,9 @@ public class PlayerController : MonoBehaviour
 
     void OnGUI()
     {
+        if (PlayerStats.stats.IsDead())
+            return;
+
         Event e = Event.current;
         if (e.isMouse && !IsPointerOverUIObject())
         {
@@ -155,4 +178,8 @@ public interface IAttacks
     void BasicAttack(Animator animator);
     void Attack1(Animator animator);
     void Attack2(Animator animator);
+
+    void Death(Animator animator);
+    void Swing(Animator animator);
+    void Idle(Animator animator);
 }
