@@ -6,15 +6,17 @@ using UnityEngine.UI;
 public class Combat : MonoBehaviour
 {
      
-    public float points;
+    public int points;
     public float maxHealth;
     private float health;
     public int attackPower;
     public float btwnAttacksTime;
     public Slider healthBar;
     private float nextAttackTime;
+    public static GameObject[] enemies;
 
     // Start is called before the first frame update
+
     void Start()
     {
         healthBar.minValue = 0;
@@ -22,7 +24,12 @@ public class Combat : MonoBehaviour
         healthBar.maxValue = maxHealth;
         healthBar.value = maxHealth;
 
-        nextAttackTime = Time.time + btwnAttacksTime;        
+        nextAttackTime = Time.time + btwnAttacksTime;    
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");    
+    }
+
+    public Vector3 getPosition() {
+        return transform.position;
     }
 
     // Update is called once per frame
@@ -53,6 +60,9 @@ public class Combat : MonoBehaviour
     {
 
         //drop items
+        Inventory.inventory.GiveSword(LongSword.sword);
+        PlayerStats.stats.GiveExp(points);
+        PlayerStats.stats.GiveHealth((int)((int)points/2));
         Destroy(gameObject);
     }
 

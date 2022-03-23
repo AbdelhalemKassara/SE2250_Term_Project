@@ -37,6 +37,10 @@ public class PlayerStats : MonoBehaviour
     public TextMeshProUGUI addDexGUI;
     public TextMeshProUGUI statPointsGUI;
 
+    public int getStr () {
+        return _str;
+    }
+
     public bool IsDead()
     {
         return _hp <= 0;
@@ -95,6 +99,11 @@ public class PlayerStats : MonoBehaviour
     private float getMaxHp()
     {
         return 25 * Mathf.Pow((1.05f), _sta) + _level * 3 + _sta * 3;
+    }
+
+    public void GiveHealth(int health) {
+        _hp += health;
+        _hp = _hp <= _maxHp ? _hp : _maxHp;
     }
 
     public void GiveExp(int xp)
