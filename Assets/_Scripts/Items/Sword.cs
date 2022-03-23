@@ -6,18 +6,19 @@ public interface ISword
 {
     Object getSwordObject();
     string getName();
+    int getAttack();
 }
 public interface IWeapon
 {
     int getAttack();
 }
 
-public class Sword : MonoBehaviour, ISword
+public class Sword : MonoBehaviour, ISword //, IWeapon
 {
     // private int _attack = 1;
     public Object SwordPrefab;
 
-    public static ISword sword;
+    public static Sword sword;
     public static string name = "Sword";
 
     void Awake()
@@ -29,4 +30,5 @@ public class Sword : MonoBehaviour, ISword
 
     public Object getSwordObject() => Instantiate(SwordPrefab, Vector3.zero, Quaternion.identity);
     public string getName() => name;
+    public int getAttack() => 1;
 }

@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour
     public GameObject leftHandGui;
     public GameObject rightHand;
     public GameObject leftHand;
+    public static Inventory inventory;
 
     private ISword equippedSword;
     private GameObject equippedSwordObject;
@@ -27,6 +28,15 @@ public class Inventory : MonoBehaviour
         // GiveSword(LongSword.sword);
     }
 
+    void Awake()
+    {
+        inventory = this;        
+    }
+
+    public ISword getCurrentSword()
+    {
+        return equippedSword;
+    }
     // Update is called once per frame
     void Update() { }
 

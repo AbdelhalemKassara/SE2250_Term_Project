@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class Combat : MonoBehaviour
 {
+     
     public float points;
     public float maxHealth;
     private float health;
-    public float attackPower;
+    public int attackPower;
     public float btwnAttacksTime;
     public Slider healthBar;
     private float nextAttackTime;
@@ -30,6 +31,7 @@ public class Combat : MonoBehaviour
         if(GetComponent<Movenment>().canAttack() && nextAttackTime <= Time.time)
         {
             //call user script for damaging player
+            PlayerStats.stats.DamagePlayer(attackPower);
             GetComponent<Animation>().Attack();
             nextAttackTime = Time.time + btwnAttacksTime;
         }
@@ -41,7 +43,7 @@ public class Combat : MonoBehaviour
 
         if(health < 0)
         {
-           // enemyDeath();
+           enemyDeath();
         }
 
         healthBar.value = health;

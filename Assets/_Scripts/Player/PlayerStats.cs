@@ -62,7 +62,7 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(ExpTest());
+        //StartCoroutine(ExpTest());
     }
 
     // Check what keys are being pressed to move the player.
