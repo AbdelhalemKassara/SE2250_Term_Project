@@ -43,10 +43,21 @@ public class CameraController : MonoBehaviour
   void OnGUI()
   {
     Event e = Event.current;
-    if (e.isMouse)
+    if (e.isMouse && !IsPointerOverUIObject())
     {
       upAngle += e.delta.y * 0.5f;
-      Debug.Log("up angle: " + upAngle);
     }
   }
+
+      public static bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(
+            Input.mousePosition.x,
+            Input.mousePosition.y
+        );
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
+    }
 }
