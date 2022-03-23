@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
 
     private bool rightButtonDown = false;
 
+    public Vector3 getPosition() {
+        return transform.position;
+    }
     public static IAttacks getAnimations()
     {
         return _attack;
