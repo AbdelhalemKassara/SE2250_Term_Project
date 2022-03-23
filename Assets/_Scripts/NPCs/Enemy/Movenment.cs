@@ -12,18 +12,14 @@ public class Movenment : MonoBehaviour
     public float invertFace;
 
     public float offsetDist;
-    public float triggerDist;
+    public float triggerWalkDist;
+    public float triggerRunDist;//unused for now
+
 
 
     private Vector3 target;
     private Vector3 playerDirection;
     
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        target = player.GetComponent<Transform>().position - invertFace * Vector3.Normalize(playerDirection) * offsetDist;
-    }
 
     // Update is called once per frame
     void Update()
@@ -34,18 +30,20 @@ public class Movenment : MonoBehaviour
         playerDirection *= invertFace;
 
         target = player.GetComponent<Transform>().position - invertFace * Vector3.Normalize(playerDirection) * offsetDist;
-        //when the player is in range
-        float stopDist = (target - transform.position).magnitude;
-        if (playerDirection.magnitude <= triggerDist && stopDist > offsetDist)
+
+        
+        if((target - transform.position).magnitude <= offsetDist)
+        {
+            lookAtPlayer();
+            rotateBodyTowardsPlayer();
+        }
+        else if(playerDirection.magnitude <= triggerWalkDist)
         {
             lookAtPlayer();
             rotateBodyTowardsPlayer();
             moveTowardsPlayer();
-        } else if(stopDist <= offsetDist) 
-        {
-            lookAtPlayer();
-            rotateBodyTowardsPlayer();
-        } else
+        }
+        else
         {
             GetComponent<Animation>().Idle();
         }
