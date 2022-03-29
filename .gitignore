@@ -1,6 +1,6 @@
 #temporarily ignoring this folder since it's not currently possible to upload files greater than 100mb
 Assets/_Materials/Imported/TerrainTexturesPackFree/TerrainTextures/*
-
+.vscode
 
 
 # =============== #
