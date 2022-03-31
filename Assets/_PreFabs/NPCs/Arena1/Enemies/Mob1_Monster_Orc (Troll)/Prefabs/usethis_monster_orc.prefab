@@ -449,7 +449,8 @@ MonoBehaviour:
   movenmentSpeed: 2
   invertFace: 1
   offsetDist: 1
-  triggerDist: 10
+  triggerWalkDist: 0
+  triggerRunDist: 0
 --- !u!114 &6541967256915849264
 MonoBehaviour:
   m_ObjectHideFlags: 0
