@@ -9,6 +9,11 @@ public class MercenaryAttacks : IAttacks
     {
 
         // enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (Combat.enemies == null) {
+            Debug.Log("Combat.enemies is null");
+            return;
+        }
+
         foreach(GameObject enemy in Combat.enemies) {
             // GameObject enemy = Combat.enemies[i];
             Debug.Log("enemy");

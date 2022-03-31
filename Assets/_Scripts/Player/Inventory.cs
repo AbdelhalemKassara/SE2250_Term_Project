@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public class Items {
+
+}
+
+
 public class Inventory : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -20,6 +25,8 @@ public class Inventory : MonoBehaviour
     public GameObject buttonPrefab;
 
     private Button equippedButton;
+
+
 
     void Start()
     {
