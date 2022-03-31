@@ -35,7 +35,7 @@ public class Combat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GetComponent<Movenment>().canAttack() && nextAttackTime <= Time.time)
+        if(GetComponent<EnemyMovement>().canAttack() && nextAttackTime <= Time.time)
         {
             //call user script for damaging player
             PlayerStats.stats.DamagePlayer(attackPower);
