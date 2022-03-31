@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Weapon : Item
 {
-    [SerializeField] private float attackPower;
-    [SerializeField] private float wear;
-    [SerializeField] private float attackPowerMult;
-    [SerializeField] private float wearMult;
+    [SerializeField] protected float attackPower;
+    [SerializeField] protected float wear;
+    [SerializeField] protected float attackPowerMult;
+    [SerializeField] protected float wearMult;
 
     public float getAttackPower() => attackPower;
     public float getWear() => wear;

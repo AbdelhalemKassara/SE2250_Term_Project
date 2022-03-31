@@ -5,7 +5,12 @@ using UnityEngine;
 public class ShopKeeperMovement : Movement
 {
     public float lookTriggerRad;
-    public float talkTriggerRad;//less than look
+    public float storeTriggerRad;//less than look
+    private bool reOpenPlayerUI;
+
+    [SerializeField] private GameObject playerUI;
+    [SerializeField] private GameObject storeUI;
+
     // Update is called once per frame
     protected void Update()
     {
@@ -16,17 +21,31 @@ public class ShopKeeperMovement : Movement
             lookAtPlayer();
             rotateBodyTowardsPlayer();
         }
-        else if (playerDirection.magnitude <= talkTriggerRad)
+        else if (playerDirection.magnitude <= storeTriggerRad)
         {
             lookAtPlayer();
             rotateBodyTowardsPlayer();
-            TalkToPlayer();
+            OpenStore();
+
+            
         }
+
+     
     }
 
-    private void TalkToPlayer()
+    private void OpenStore()
     {
-        //some kind of descision maiking for what to say
+        //hide the ui(health, inventory, stats)
+        playerUI.SetActive(false);
+        storeUI.SetActive(true);
+
     }
+
+    private void CloseStore()
+    {
+        storeUI.SetActive(false);
+        storeUI.SetActive(false);
+    }
+
 
 }

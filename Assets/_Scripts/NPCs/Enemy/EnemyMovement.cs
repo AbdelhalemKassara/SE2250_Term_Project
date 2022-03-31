@@ -34,6 +34,10 @@ public class EnemyMovement : Movement
             lookAtPlayer();
             rotateBodyTowardsPlayer();
             moveTowardsPlayer();
+        } else if(playerDirection.magnitude <= triggerRunRad)
+        {
+            lookAtPlayer();
+            rotateBodyTowardsPlayer();
         }
         else
         {
