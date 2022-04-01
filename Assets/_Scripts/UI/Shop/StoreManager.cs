@@ -13,11 +13,11 @@ public abstract class StoreManager : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        addItems(new ItemQuant(item, 1));
+        AddItems(new ItemQuant(item, 1));
     }
 
     //this adds the item to the 'BuyMenu' of the store
-    public void addItems(ItemQuant items)
+    public void AddItems(ItemQuant items)
     {
         GameObject row = CheckIfItemExists(items.GetItem());
 
@@ -29,6 +29,7 @@ public abstract class StoreManager : MonoBehaviour
         {
             RowController rowController = row.GetComponent<RowController>();
             rowController.updateQuantity(currentItem.GetQuantity() + items.GetQuantity());
+            currentItem.IncQuantity();
         }
         else
         {

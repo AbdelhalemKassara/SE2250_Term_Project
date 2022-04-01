@@ -6,12 +6,14 @@ public class SellItems : StoreManager
 {
     private BuyItems buyItems;
 
+    //test code (delete later)
     private void Start()
     {
-        AddRow(new ItemQuant(new Sword1(), 1), playerItems);
+        AddRow(new ItemQuant(new Sword1(), 3), playerItems);
 
         AddItemsFromPlayerInventory();
     }
+
     protected override bool ProcessFunds(int reqAmount)
     {
         //give funds to player
@@ -23,8 +25,8 @@ public class SellItems : StoreManager
         ItemQuant playerItemQuant;
         if(playerItems.TryGetValue(row, out playerItemQuant))
         {
+            ProcessFunds(playerItemQuant.GetItemValue());
             //remove item from player inventory
-
             AddItem(playerItemQuant.GetItem());//adds the item to the buy section of the store
             DecQuantity(row, playerItemQuant);//updates the sell portion of the store
                        

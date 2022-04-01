@@ -8,20 +8,25 @@ using System;
 public class RowController : MonoBehaviour
 {
     private TextMeshProUGUI quantityText;
-    private GameObject thisRow;
-    [SerializeField] private BuyItems buyItems;
+    [SerializeField] private StoreManager storeManager;
     
     private void Start()
     {
         GetComponent<Transform>().Find("Button").GetComponent<Button>().onClick.AddListener(ProcessItem);
         quantityText = GetComponent<Transform>().Find("Quantity").GetComponent<TextMeshProUGUI>();
-        buyItems = transform.parent.gameObject.GetComponent<BuyItems>();
+
+        storeManager = transform.parent.gameObject.GetComponent<BuyItems>();
+
+        if(storeManager == null)
+        {
+            storeManager = transform.parent.gameObject.GetComponent<SellItems>();
+        }
 
     }
 
     void ProcessItem()
     {
-        buyItems.ProcessTransaction(gameObject, this);        
+        storeManager.ProcessTransaction(gameObject);        
     }
 
     public void updateQuantity(int quantity)
