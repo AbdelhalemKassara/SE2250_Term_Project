@@ -13,7 +13,14 @@ public class CharacterSelection : MonoBehaviour
     public Object archerPrefab;
     public Object magicianPrefab;
     private static GameObject player;
-    private static string characterType = "Mercenary";
+    private static string _characterType = "Mercenary";
+
+    public string GetCharacterType() => _characterType;
+
+    // public static GameObject getRightHand() {
+    //     if (player == null) return null;
+    //     return player.transform.Find("Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right Forearm/Right Hand").gameObject;
+    // }
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +29,7 @@ public class CharacterSelection : MonoBehaviour
             delegate
             {
                 Debug.Log("Mercenary Selected");
-                characterType = "Mercenary";
+                _characterType = "Mercenary";
 
                 player = (GameObject)Instantiate(
                     mercenaryPrefab,
@@ -36,7 +43,7 @@ public class CharacterSelection : MonoBehaviour
             delegate
             {
                 Debug.Log("Archer Selected");
-                characterType = "Archer";
+                _characterType = "Archer";
                 PlayerController.setAttacks(new ArcherAttacks());
 
                 player = (GameObject)Instantiate(
@@ -51,7 +58,7 @@ public class CharacterSelection : MonoBehaviour
             delegate
             {
                 Debug.Log("Magician Selected");
-                characterType = "Magician";
+                _characterType = "Magician";
 
                 closeMenu();
             }

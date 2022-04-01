@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     public static void setAttacks(IAttacks attacks)
     {
-        _attack.Idle(_animator);
+        // _attack.Idle(_animator);
         _attack = attacks;
     }
 

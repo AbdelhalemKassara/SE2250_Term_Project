@@ -4,22 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Items { }
-
 public class Inventory : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject panel;
     public GameObject rightHandGui;
     public GameObject leftHandGui;
-    public GameObject rightHand;
+
+    // public GameObject rightHand;
     public GameObject leftHand;
     public TextMeshProUGUI cashTextLabel;
     private int _cash = 0;
 
     public static Inventory inventory;
 
-    private ISword equippedSword;
+    private static List<Item> items = new List<Item>();
+    private static Dictionary<Item, Button> buttonMap = new Dictionary<Item, Button>();
+
+    private Weapon equippedSword;
     private GameObject equippedSwordObject;
 
     public GameObject buttonPrefab;
@@ -28,8 +30,8 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        ISword sword = Sword.sword;
-        GiveSword(sword);
+        Item sword = Sword1.thisItem;
+        GiveWeapon(sword);
         // GiveSword(LongSword.sword);
     }
 
@@ -55,7 +57,7 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public ISword getCurrentSword()
+    public Weapon getCurrentSword()
     {
         return equippedSword;
     }
@@ -66,37 +68,68 @@ public class Inventory : MonoBehaviour
         cashTextLabel.text = "Cash: " + _cash;
     }
 
-    public void GiveSword(ISword sword)
+    public void RemoveItem(Item item)
     {
+        Button button = buttonMap[item];
+        items.Remove(item);
+        button.gameObject.SetActive(false);
+        if (item == equippedSword)
+        {
+            Destroy(equippedSwordObject);
+            equippedSword = null;
+            equippedButton = null;
+        }
+    }
+
+    public void GiveItem(Item item)
+    {
+        if (item.getType() == "Weapon")
+            GiveWeapon(item);
+        // TODO: handle giving player other items, if/when we implement other items.
+    }
+
+    public Item[] GetItems() => items.ToArray();
+
+    public void GiveWeapon(Item weapon)
+    {
+        Debug.Log("Giving Weapon " + weapon.GetName());
         Button button = Instantiate(buttonPrefab).GetComponent<Button>();
         button.transform.SetParent(panel.transform, false);
-        button.GetComponentInChildren<TextMeshProUGUI>().text = sword.getName();
+        button.GetComponentInChildren<TextMeshProUGUI>().text = weapon.GetName();
+
+        items.Add(weapon);
+        buttonMap[weapon] = button;
 
         button.onClick.AddListener(
             delegate
             {
                 button.gameObject.SetActive(false);
-                equipSword(sword);
+                equipWeapon((Weapon)weapon);
             }
         );
     }
 
-    void equipSword(ISword sword)
+    void equipWeapon(Weapon weapon)
     {
         if (equippedSword != null)
         {
             Destroy(equippedSwordObject);
-            GiveSword(equippedSword);
+            GiveWeapon(equippedSword);
             equippedButton.gameObject.SetActive(false);
         }
 
-        equippedSword = sword;
-        equippedSwordObject = (GameObject)sword.getSwordObject();
+        GameObject rightHand = BodyParts.rightHand;
+        if (rightHand == null)
+            return;
+
+        equippedSword = weapon;
+        equippedSwordObject = weapon.getObject();
         equippedSwordObject.transform.SetParent(rightHand.transform, false);
 
         Button button = Instantiate(buttonPrefab).GetComponent<Button>();
         button.transform.SetParent(rightHandGui.transform, false);
-        button.GetComponentInChildren<TextMeshProUGUI>().text = sword.getName();
+        button.GetComponentInChildren<TextMeshProUGUI>().text = weapon.GetName();
+        buttonMap[weapon] = button;
 
         equippedButton = button;
 
@@ -104,7 +137,7 @@ public class Inventory : MonoBehaviour
             delegate
             {
                 Destroy(equippedSwordObject);
-                GiveSword(sword);
+                GiveWeapon(weapon);
                 button.gameObject.SetActive(false);
                 equippedSword = null;
                 equippedButton = null;

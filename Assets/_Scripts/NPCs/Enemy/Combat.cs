@@ -35,7 +35,7 @@ public class Combat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GetComponent<Movenment>().canAttack() && nextAttackTime <= Time.time)
+        if(GetComponent<EnemyMovement>().canAttack() && nextAttackTime <= Time.time)
         {
             //call user script for damaging player
             PlayerStats.stats.DamagePlayer(attackPower);
@@ -60,7 +60,7 @@ public class Combat : MonoBehaviour
     {
 
         //drop items
-        Inventory.inventory.GiveSword(LongSword.sword);
+        Inventory.inventory.GiveWeapon(LongSword1.thisItem);
         PlayerStats.stats.GiveExp(points);
         PlayerStats.stats.GiveHealth((int)((int)points/2));
         Destroy(gameObject);

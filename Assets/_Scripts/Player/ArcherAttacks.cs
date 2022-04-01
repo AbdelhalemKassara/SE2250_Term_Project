@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArcherAttacks : IAttacks
 {
-    public async void AttackEnemies(int damage)
+    public void AttackEnemies(int damage)
     {
         // enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (Combat.enemies == null)
@@ -56,9 +56,9 @@ public class ArcherAttacks : IAttacks
 
         string animationName = "shoot";
 
-        if (animator.GetBool("shoot"))
+        if (animator.GetBool(animationName))
             return;
-        animator.SetTrigger("shoot");
+        animator.SetTrigger(animationName);
         AttackEnemies(getDamage(1));
     }
 

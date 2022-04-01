@@ -5,7 +5,7 @@ using UnityEngine;
 public class MercenaryAttacks : IAttacks
 {
 
-    public async void AttackEnemies(int damage)
+    public void AttackEnemies(int damage)
     {
 
         // enemies = GameObject.FindGameObjectsWithTag("Enemy");
