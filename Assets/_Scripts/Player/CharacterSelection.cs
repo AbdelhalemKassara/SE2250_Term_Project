@@ -13,6 +13,7 @@ public class CharacterSelection : MonoBehaviour
     public Object archerPrefab;
     public Object magicianPrefab;
     private static GameObject player;
+    private static string characterType = "Mercenary";
 
     // Start is called before the first frame update
     void Start()
@@ -21,21 +22,37 @@ public class CharacterSelection : MonoBehaviour
             delegate
             {
                 Debug.Log("Mercenary Selected");
-                player = (GameObject)Instantiate(mercenaryPrefab, getSpawnLocation(), Quaternion.identity);
+                characterType = "Mercenary";
+
+                player = (GameObject)Instantiate(
+                    mercenaryPrefab,
+                    getSpawnLocation(),
+                    Quaternion.identity
+                );
                 closeMenu();
             }
         );
         archerButton.onClick.AddListener(
             delegate
             {
-                Debug.Log("Mercenary Selected");
+                Debug.Log("Archer Selected");
+                characterType = "Archer";
+                PlayerController.setAttacks(new ArcherAttacks());
+
+                player = (GameObject)Instantiate(
+                    archerPrefab,
+                    getSpawnLocation(),
+                    Quaternion.identity
+                );
                 closeMenu();
             }
         );
         magicianButton.onClick.AddListener(
             delegate
             {
-                Debug.Log("Mercenary Selected");
+                Debug.Log("Magician Selected");
+                characterType = "Magician";
+
                 closeMenu();
             }
         );
@@ -49,11 +66,13 @@ public class CharacterSelection : MonoBehaviour
         return Vector3.zero;
     }
 
-    public static bool isPlayerReady() {
+    public static bool isPlayerReady()
+    {
         return player != null;
     }
 
-    public static GameObject getPlayer() {
+    public static GameObject getPlayer()
+    {
         return player;
     }
 

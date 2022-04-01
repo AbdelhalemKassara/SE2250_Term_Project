@@ -17,9 +17,17 @@ public class PlayerController : MonoBehaviour
 
     private bool rightButtonDown = false;
 
-    public Vector3 getPosition() {
+    public Vector3 getPosition()
+    {
         return transform.position;
     }
+
+    public static void setAttacks(IAttacks attacks)
+    {
+        _attack.Idle(_animator);
+        _attack = attacks;
+    }
+
     public static IAttacks getAnimations()
     {
         return _attack;
@@ -36,7 +44,8 @@ public class PlayerController : MonoBehaviour
         controller = this;
     }
 
-    public void Respawn() {
+    public void Respawn()
+    {
         _attack.Idle(_animator);
     }
 
