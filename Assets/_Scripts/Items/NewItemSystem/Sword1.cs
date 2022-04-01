@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Sword1 : Weapon
 {
-    private void Awake()
+    public Sword1()
     {
         attackPower = 1;
         wear = 1;
         attackPowerMult = 1;
         wearMult = 1;
+        value = 10;
+        itemName = "Sword";
+
     }
 
 }

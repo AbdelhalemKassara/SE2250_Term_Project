@@ -14,7 +14,6 @@ public class Weapon : Item
     public float getAttackPowerMult() => attackPowerMult;
     public float getWearMult() => wearMult;
 
-
     public void setAttackPowerMult(float attackPowerMult)
     {
         this.attackPowerMult = attackPowerMult;
