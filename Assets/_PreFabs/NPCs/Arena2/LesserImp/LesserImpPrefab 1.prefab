@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 4306814131670520}
   - component: {fileID: 95958191548540600}
   m_Layer: 0
-  m_Name: LesserImpPrefab
+  m_Name: LesserImpPrefab 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
