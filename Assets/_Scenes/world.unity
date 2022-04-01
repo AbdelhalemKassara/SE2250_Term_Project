@@ -453,6 +453,7 @@ GameObject:
   - component: {fileID: 84957317}
   - component: {fileID: 84957319}
   - component: {fileID: 84957318}
+  - component: {fileID: 84957320}
   m_Layer: 5
   m_Name: Sell
   m_TagString: Untagged
@@ -520,6 +521,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 1
+--- !u!114 &84957320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84957316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cbb39ff6b17d4848880483645b634b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuRow: {fileID: 2784075098099940111, guid: f16de95acd1c6422da714632df8492d1, type: 3}
+  player: {fileID: 1749777305}
 --- !u!1 &87180384
 GameObject:
   m_ObjectHideFlags: 0

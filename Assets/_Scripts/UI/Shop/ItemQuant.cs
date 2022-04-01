@@ -27,16 +27,14 @@ public class ItemQuant
 
     public override int GetHashCode()
     {
-        //return item.GetHashCode();
-        return base.GetHashCode();
+        return item.GetHashCode();
     }
     public override bool Equals(object obj)
     {
-        if(obj != null && obj is ItemQuant && item.Equals(obj))
+        if(obj is ItemQuant && item.Equals(((ItemQuant)obj).GetItem()))
         {
-            //return true
+            return true;
         }
-        //return false;
-        return base.Equals(obj);
+        return false;
     }
 }

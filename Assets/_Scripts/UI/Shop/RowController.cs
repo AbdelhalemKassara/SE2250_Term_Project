@@ -13,24 +13,19 @@ public class RowController : MonoBehaviour
     
     private void Start()
     {
-        GetComponent<Button>().onClick.AddListener(ProcessItem);
-        thisRow = gameObject.transform.parent.gameObject;
-        quantityText = thisRow.GetComponent<Transform>().Find("Quantity").GetComponent<TextMeshProUGUI>();
-        buyItems = thisRow.transform.parent.gameObject.GetComponent<BuyItems>();
+        GetComponent<Transform>().Find("Button").GetComponent<Button>().onClick.AddListener(ProcessItem);
+        quantityText = GetComponent<Transform>().Find("Quantity").GetComponent<TextMeshProUGUI>();
+        buyItems = transform.parent.gameObject.GetComponent<BuyItems>();
 
     }
 
     void ProcessItem()
     {
-        buyItems.ProcessTransaction(thisRow, this);        
+        buyItems.ProcessTransaction(gameObject, this);        
     }
 
     public void updateQuantity(int quantity)
     {
-        if(quantity < 1)
-        {
-            Destroy(thisRow);
-        }
         quantityText.text = 'X' + quantity.ToString();
     }
 }

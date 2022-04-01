@@ -17,8 +17,8 @@ public class BuyItems : StoreManager
         ItemQuant item = new ItemQuant(ls, 3);
         ItemQuant item1 = new ItemQuant(s, 3);
 
-        AddRow(item);
-        AddRow(item1);
+        AddRow(item, itemsForSale);
+        AddRow(item1, itemsForSale);
     }
 
     protected override bool ProcessFunds(int reqAmount)
@@ -28,15 +28,14 @@ public class BuyItems : StoreManager
         return true;
     }
 
-    public override void ProcessTransaction(GameObject row, RowController purchaseController)
+    public override void ProcessTransaction(GameObject row)
     {
         ItemQuant itemQuant;
         if(itemsForSale.TryGetValue(row, out itemQuant))
         {
             if(ProcessFunds(itemQuant.GetItemValue())) {
                 //give the player the weapon
-                itemQuant.DecQuantity();
-                purchaseController.updateQuantity(itemQuant.GetQuantity());
+                DecQuantity(row, itemQuant);
             } else
             {
                 //do somethign to tell player insufficent funds
@@ -47,6 +46,3 @@ public class BuyItems : StoreManager
         }
     }
 }
-
-
-

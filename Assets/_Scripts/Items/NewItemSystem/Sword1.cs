@@ -14,5 +14,23 @@ public class Sword1 : Weapon
         itemName = "Sword";
 
     }
+    //ovveride hascode method 
+
+    public override bool Equals(object obj)
+    {
+        if (obj != null && obj is Sword1)
+        {
+            Sword1 s = (Sword1)obj;
+            if(s.getAttackPower().Equals(attackPower) && s.getWear().Equals(wear) &&
+                s.getAttackPowerMult().Equals(attackPowerMult) &&
+                s.getWearMult().Equals(wearMult) && s.GetValue().Equals(value) &&
+                s.GetName().Equals(itemName))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 }

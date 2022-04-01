@@ -9,23 +9,35 @@ public abstract class StoreManager : MonoBehaviour
     [SerializeField] protected GameObject player;
 
     protected static Dictionary<GameObject, ItemQuant> itemsForSale = new Dictionary<GameObject, ItemQuant>();
-    public void addItem(Item item)
+    protected static Dictionary<GameObject, ItemQuant> playerItems = new Dictionary<GameObject, ItemQuant>();
+
+    public void AddItem(Item item)
     {
-        //RowController rowController = CheckIfItemExisits(item);
-
-      //  if(row )
-        //check if there already is a row that has the item
-        //if there is then add it
-        //if not then AddRow(new ItemQuant(item, 1));
-
+        addItems(new ItemQuant(item, 1));
     }
+
+    //this adds the item to the 'BuyMenu' of the store
     public void addItems(ItemQuant items)
     {
-        //check if there already is a row that has the item
-        //if there is then addThem it
-        //if not then AddRow(items);
+        GameObject row = CheckIfItemExists(items.GetItem());
+
+        ItemQuant currentItem;
+
+        //if the store is already selling an item it increases it's quantity
+        //otherwise it creates a new row
+        if (row != null && itemsForSale.TryGetValue(row, out currentItem))
+        {
+            RowController rowController = row.GetComponent<RowController>();
+            rowController.updateQuantity(currentItem.GetQuantity() + items.GetQuantity());
+        }
+        else
+        {
+            AddRow(items, itemsForSale);
+        }
     }
 
+    //Checks if the store has the same item for sale
+    //and returns the row that contains that item
     private GameObject CheckIfItemExists(Item item)
     {
         foreach(KeyValuePair<GameObject, ItemQuant> entry in itemsForSale)
@@ -39,7 +51,8 @@ public abstract class StoreManager : MonoBehaviour
         return null;
     }
 
-    public void AddRow(ItemQuant itemQuant)
+    //this adds a new row to the table
+    public void AddRow(ItemQuant itemQuant, Dictionary<GameObject, ItemQuant> dict)
     {
         Item item = itemQuant.GetItem();
         int quantity = itemQuant.GetQuantity();
@@ -50,9 +63,31 @@ public abstract class StoreManager : MonoBehaviour
         row.GetComponent<Transform>().Find("Quantity").GetComponent<TextMeshProUGUI>().text = 'X' + quantity.ToString();
         row.transform.parent = gameObject.transform;
 
-        itemsForSale.Add(row, itemQuant);
+        dict.Add(row, itemQuant);
     }
 
-    public abstract void ProcessTransaction(GameObject row, RowController purchaseController);
+    public void DecQuantity(GameObject row, ItemQuant itemQuant)
+    {
+        itemQuant.DecQuantity();
+
+        if (itemQuant.GetQuantity() > 0)
+        {
+            row.GetComponent<RowController>().updateQuantity(itemQuant.GetQuantity());
+        }
+        else
+        {
+            if (playerItems.ContainsKey(row))
+            {
+                playerItems.Remove(row);
+            }
+            else if (itemsForSale.ContainsKey(row))
+            {
+                itemsForSale.Remove(row);
+            }
+
+            Destroy(row);
+        }
+    }
+    public abstract void ProcessTransaction(GameObject row);
     protected abstract bool ProcessFunds(int reqAmount);
 }
