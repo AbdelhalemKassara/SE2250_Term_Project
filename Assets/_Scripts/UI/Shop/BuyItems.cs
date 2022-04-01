@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class BuyItems : MonoBehaviour
+public class BuyItems : StoreManager
 {
-    [SerializeField] private GameObject menuRow;
-    [SerializeField] private GameObject player;
+    //key is rows
 
 
     private void Start()
@@ -14,40 +13,40 @@ public class BuyItems : MonoBehaviour
         //adds the sword and longs sword to the dictionary
         Item ls = new LongSword1();
         Item s = new Sword1();
-        addRow(ls, 3);
-        addRow(s, 3);
-        
+
+        ItemQuant item = new ItemQuant(ls, 3);
+        ItemQuant item1 = new ItemQuant(s, 3);
+
+        AddRow(item);
+        AddRow(item1);
     }
 
-    private void addRow(Item item, int quantity)
+    protected override bool ProcessFunds(int reqAmount)
     {
-        GameObject row = Instantiate(menuRow);
-        row.GetComponent<Transform>().Find("Item Name").GetComponent<TextMeshProUGUI>().text = item.GetName();
-        row.GetComponent<Transform>().Find("Price").GetComponent<TextMeshProUGUI>().text = '$' + item.GetValue().ToString();
-        row.GetComponent<Transform>().Find("Quantity").GetComponent<TextMeshProUGUI>().text = 'X' + quantity.ToString();
-        row.transform.parent = gameObject.transform;
         
+        //remove funds from player if sufficient then return true else return false
+        return true;
     }
-   
+
+    public override void ProcessTransaction(GameObject row, RowController purchaseController)
+    {
+        ItemQuant itemQuant;
+        if(itemsForSale.TryGetValue(row, out itemQuant))
+        {
+            if(ProcessFunds(itemQuant.GetItemValue())) {
+                //give the player the weapon
+                itemQuant.DecQuantity();
+                purchaseController.updateQuantity(itemQuant.GetQuantity());
+            } else
+            {
+                //do somethign to tell player insufficent funds
+            }
+        } else
+        {
+            Debug.Log("error processing transaction");
+        }
+    }
 }
 
 
-public class ItemSet
-{
-    private Item item;
-    private int quantity;
 
-    public ItemSet(Item item, int quantity)
-    {
-        this.item = item;
-        this.quantity = quantity;
-    }
-
-    public Item GetItem() => item;
-    public int GetQuantity() => quantity;
-
-    public void DecQuantity() 
-    {
-        quantity--;
-    }
-}

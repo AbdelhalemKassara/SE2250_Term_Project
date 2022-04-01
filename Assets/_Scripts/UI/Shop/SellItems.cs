@@ -2,21 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SellItems : MonoBehaviour
+public class SellItems : StoreManager
 {
-    // Start is called before the first frame update
-    void Start()
+    private BuyItems buyItems;
+
+    protected override bool ProcessFunds(int reqAmount)
     {
-        
+        //give funds to player
+        return true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void ProcessTransaction(GameObject row, RowController purchaseController)
     {
-        
+        //remove item from player
+        //add the item to the buy section of the store
     }
-    private List<Item> GetPlayerInventory()
-    {
-        return null;
-    }
+
 }
