@@ -20,7 +20,7 @@ public class BuyItems : StoreManager
         AddRow(item, itemsForSale);
         AddRow(item1, itemsForSale);
     }
-
+   
     protected override bool ProcessFunds(int reqAmount)
     {         
         return Inventory.inventory.TakeCash(reqAmount);

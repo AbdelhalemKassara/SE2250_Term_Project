@@ -7,11 +7,12 @@ public class SellItems : StoreManager
     private BuyItems buyItems;
 
     //test code (delete later)
-    private void Start()
+    /*private void Start()
     {
         AddRow(new ItemQuant(new Sword1(), 3), playerItems);
 
     }
+    */
 
     protected override bool ProcessFunds(int reqAmount)
     {
@@ -51,6 +52,12 @@ public class SellItems : StoreManager
             }
 
         }
+
+        //update the sell table
+        foreach(KeyValuePair<GameObject, ItemQuant> entry in playerItems)
+        {
+            entry.Key.GetComponent<RowController>().updateQuantity(entry.Value.GetQuantity());
+        }
     }
     private ItemQuant GetItemQuantFromPlayerItems(Item item)
     {
@@ -71,6 +78,6 @@ public class SellItems : StoreManager
         {
             Destroy(entry.Key);//removes all the rows
         }
-        playerItems = new Dictionary<GameObject, ItemQuant>();
+        playerItems.Clear();
     }
 }

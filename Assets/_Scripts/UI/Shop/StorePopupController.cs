@@ -12,7 +12,7 @@ public class StorePopupController : MonoBehaviour
 
     private bool setupStore = true;
     private bool unSetupStore = false;
-
+    private bool setupSellMenu = true;
     private GameObject panel;
 
     private void Start()
@@ -23,16 +23,29 @@ public class StorePopupController : MonoBehaviour
 
     void Update()
     {
+        if(CharacterSelection.isPlayerReady())
+        {
+            player = CharacterSelection.getPlayer();
+        } else
+        {
+            return;
+        }
        if((player.transform.position - storeManagerNPC.transform.position).sqrMagnitude < triggerRadSqr)
         {
             if(setupStore)
             {
                 panel.SetActive(true);
-                sellStore.AddItemsFromPlayerInventory();
+                
 
                 setupStore = false;
                 unSetupStore = true;
 
+            }
+            if (setupSellMenu && sellStore.gameObject.activeSelf)
+            {
+                sellStore.AddItemsFromPlayerInventory();
+
+                setupSellMenu = false;
             }
         } else
         {
@@ -44,6 +57,7 @@ public class StorePopupController : MonoBehaviour
 
                 unSetupStore = false;
                 setupStore = true;
+                setupSellMenu = true;
             }
         }   
     }

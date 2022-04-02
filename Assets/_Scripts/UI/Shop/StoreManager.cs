@@ -6,21 +6,20 @@ using TMPro;
 public abstract class StoreManager : MonoBehaviour
 {
     [SerializeField] private GameObject menuRow;
-    [SerializeField] protected GameObject player;
     
     protected static Dictionary<GameObject, ItemQuant> itemsForSale = new Dictionary<GameObject, ItemQuant>();
     protected static Dictionary<GameObject, ItemQuant> playerItems = new Dictionary<GameObject, ItemQuant>();
 
     public void AddBuyMenuItem(Item item)
     {
-        AddItems(new ItemQuant(item, 1), transform.parent.Find("Buy").gameObject.GetComponent<BuyItems>());
+        AddItems(new ItemQuant(item, 1), transform.parent.Find("Buy").gameObject.GetComponent<BuyItems>(), itemsForSale);
     }
     public void AddSellMenuItem(Item item)
     {
-        AddItems(new ItemQuant(item, 1), transform.parent.Find("Sell").gameObject.GetComponent<BuyItems>());
+        AddItems(new ItemQuant(item, 1), transform.parent.Find("Sell").gameObject.GetComponent<SellItems>(), playerItems);
     }
     //this adds the item to the Menu of the store
-    public void AddItems(ItemQuant items, StoreManager manager)
+    public void AddItems(ItemQuant items, StoreManager manager, Dictionary<GameObject, ItemQuant> dict)
     {
         GameObject row = CheckIfItemExists(items.GetItem());
 
@@ -28,7 +27,7 @@ public abstract class StoreManager : MonoBehaviour
 
         //if the store is already selling an item it increases it's quantity
         //otherwise it creates a new row
-        if (row != null && itemsForSale.TryGetValue(row, out currentItem))
+        if (row != null && dict.TryGetValue(row, out currentItem))
         {
             RowController rowController = row.GetComponent<RowController>();
             rowController.updateQuantity(currentItem.GetQuantity() + items.GetQuantity());
@@ -36,7 +35,7 @@ public abstract class StoreManager : MonoBehaviour
         }
         else
         {
-            manager.AddRow(items, manager is BuyItems ? itemsForSale : playerItems); //TODO: change this so it would work if additional classes other than BuyItems and SellItems exist
+            manager.AddRow(items, dict); //TODO: change this so it would work if additional classes other than BuyItems and SellItems exist
         }
     }
 

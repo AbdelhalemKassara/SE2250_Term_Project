@@ -13,7 +13,7 @@ public class RowController : MonoBehaviour
     private void Start()
     {
         GetComponent<Transform>().Find("Button").GetComponent<Button>().onClick.AddListener(ProcessItem);
-        quantityText = GetComponent<Transform>().Find("Quantity").GetComponent<TextMeshProUGUI>();
+        quantityText = GetComponent<Transform>().Find("Quantity").gameObject.GetComponent<TextMeshProUGUI>();
 
         storeManager = transform.parent.gameObject.GetComponent<BuyItems>();
 
@@ -29,8 +29,8 @@ public class RowController : MonoBehaviour
         storeManager.ProcessTransaction(gameObject);        
     }
 
-    public void updateQuantity(int quantity)
+    public void updateQuantity(int quant)
     {
-        quantityText.text = 'X' + quantity.ToString();
+        quantityText.text = 'X' + quant.ToString();
     }
 }

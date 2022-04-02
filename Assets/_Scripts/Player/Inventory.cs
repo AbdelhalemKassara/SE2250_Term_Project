@@ -73,7 +73,13 @@ public class Inventory : MonoBehaviour
     // Searches for an equivilent item and returns it.
     private Item FindEquivilentItem(Item item) {
         foreach (Item _item in items ) {
-            if (item.Equivalent(item)) return _item;
+            if (item.Equivalent(_item))
+            {
+                Debug.Log("FindEquivilentItem is called");
+                //Debug.Log(_item);
+                Debug.Log(item);
+                return _item;
+            }
         }
         return null;
     }
