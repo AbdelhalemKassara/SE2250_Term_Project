@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidBody;
     private static Animator _animator;
     private bool _attacking = false;
+    private bool _jumping = false;
 
     private static IAttacks _attack = new MercenaryAttacks();
 
@@ -91,6 +92,20 @@ public class PlayerController : MonoBehaviour
             move = move - _player.transform.forward;
         }
 
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (!_jumping)
+            {
+                StartCoroutine(StartJumpDebounce());
+
+                if (
+                    !(_animator.GetCurrentAnimatorStateInfo(0).IsName("jump"))
+                    && !_animator.GetBool("jump")
+                )
+                    _animator.SetTrigger("jump");
+            }
+        }
+
         Vector3 vel = Vector3.Normalize(move) * speed * running;
         _rigidBody.velocity = new Vector3(vel.x, _rigidBody.velocity.y, vel.z);
 
@@ -165,6 +180,18 @@ public class PlayerController : MonoBehaviour
         //After we have waited .5 seconds print the time again.
 
         _attacking = false;
+    }
+
+    IEnumerator StartJumpDebounce()
+    {
+        _jumping = true;
+
+        //yield on a new YieldInstruction that waits for .5 seconds.
+        yield return new WaitForSeconds(1f);
+
+        //After we have waited .5 seconds print the time again.
+
+        _jumping = false;
     }
 
     void OnGUI()

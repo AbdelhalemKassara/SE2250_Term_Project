@@ -21,7 +21,7 @@ public class Sword1 : Weapon
         if (obj != null && obj is Sword1)
         {
             Sword1 s = (Sword1)obj;
-            if(s.getAttackPower().Equals(attackPower) && s.getWear().Equals(wear) &&
+            if(s.getAttack().Equals(attackPower) && s.getWear().Equals(wear) &&
                 s.getAttackPowerMult().Equals(attackPowerMult) &&
                 s.getWearMult().Equals(wearMult) && s.GetValue().Equals(value) &&
                 s.GetName().Equals(itemName))

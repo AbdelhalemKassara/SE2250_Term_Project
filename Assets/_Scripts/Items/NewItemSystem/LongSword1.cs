@@ -21,7 +21,7 @@ public class LongSword1 : Weapon
         if (obj != null && obj is LongSword1)
         {
             LongSword1 s = (LongSword1)obj;
-            if (s.getAttackPower().Equals(attackPower) && s.getWear().Equals(wear) &&
+            if (s.getAttack().Equals(attackPower) && s.getWear().Equals(wear) &&
                 s.getAttackPowerMult().Equals(attackPowerMult) &&
                 s.getWearMult().Equals(wearMult) && s.GetValue().Equals(value) &&
                 s.GetName().Equals(itemName))
