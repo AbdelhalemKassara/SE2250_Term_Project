@@ -129,7 +129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh129254
+  m_Name: pb_Mesh23936
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -887,7 +887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8242452929305132767, guid: 4fd9fcd07d7024b5ea8f5f52194662ca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 357.81964
+      value: 314.5
       objectReference: {fileID: 0}
     - target: {fileID: 8242452929305132767, guid: 4fd9fcd07d7024b5ea8f5f52194662ca, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9004,7 +9004,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh129198
+  m_Name: pb_Mesh23902
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14967,6 +14967,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1660f1477e2d7df43acd0fe536e6095e, type: 3}
+--- !u!1 &1514255835 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8730443280127124581, guid: 4fd9fcd07d7024b5ea8f5f52194662ca, type: 3}
+  m_PrefabInstance: {fileID: 163783505}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1533205136
 GameObject:
   m_ObjectHideFlags: 0
@@ -21248,7 +21253,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh129366
+  m_Name: pb_Mesh23998
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -53298,6 +53303,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1339119057613123513, guid: 8d00d3b0ab9f241338668574c7cb88ea, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1143554672}
+    - target: {fileID: 1339119057613123513, guid: 8d00d3b0ab9f241338668574c7cb88ea, type: 3}
+      propertyPath: triggerRadSqr
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1339119057613123513, guid: 8d00d3b0ab9f241338668574c7cb88ea, type: 3}
+      propertyPath: storeManagerNPC
+      value: 
+      objectReference: {fileID: 1514255835}
     - target: {fileID: 5592900993391518033, guid: 8d00d3b0ab9f241338668574c7cb88ea, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
