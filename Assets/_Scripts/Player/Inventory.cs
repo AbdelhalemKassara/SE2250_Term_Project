@@ -95,9 +95,11 @@ public class Inventory : MonoBehaviour
         Item item = FindEquivilentItem(findItem);
         if (!(item is Weapon || item is Sword1 || item is LongSword1 || item is Item)) return;
 
-        Button button = buttonMap[item];
+        Button button = buttonMap[item];//TODO: there is only one item object that gets added to the button dictionary
         items.Remove(item);
-        button.gameObject.SetActive(false);
+        //button.gameObject.SetActive(false);
+        Debug.Log(dictString(buttonMap));
+        Destroy(button.gameObject);
         if (item == equippedSword)
         {
             Destroy(equippedSwordObject);
@@ -106,6 +108,16 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public string dictString(Dictionary<Item, Button> dict)
+    {
+        string str = "";
+        foreach(KeyValuePair<Item, Button> entry in dict)
+        {
+            str += ", (" + entry.Key + ", " + entry.Value + ")";
+        }
+
+        return str;
+    }
     public void GiveItem(Item item)
     {
         if (item.getType() == "Weapon")
