@@ -7,17 +7,20 @@ public abstract class StoreManager : MonoBehaviour
 {
     [SerializeField] private GameObject menuRow;
     [SerializeField] protected GameObject player;
-
+    
     protected static Dictionary<GameObject, ItemQuant> itemsForSale = new Dictionary<GameObject, ItemQuant>();
     protected static Dictionary<GameObject, ItemQuant> playerItems = new Dictionary<GameObject, ItemQuant>();
 
-    public void AddItem(Item item)
+    public void AddBuyMenuItem(Item item)
     {
-        AddItems(new ItemQuant(item, 1));
+        AddItems(new ItemQuant(item, 1), transform.parent.Find("Buy").gameObject.GetComponent<BuyItems>());
     }
-
-    //this adds the item to the 'BuyMenu' of the store
-    public void AddItems(ItemQuant items)
+    public void AddSellMenuItem(Item item)
+    {
+        AddItems(new ItemQuant(item, 1), transform.parent.Find("Sell").gameObject.GetComponent<BuyItems>());
+    }
+    //this adds the item to the Menu of the store
+    public void AddItems(ItemQuant items, StoreManager manager)
     {
         GameObject row = CheckIfItemExists(items.GetItem());
 
@@ -33,7 +36,7 @@ public abstract class StoreManager : MonoBehaviour
         }
         else
         {
-            AddRow(items, itemsForSale);
+            manager.AddRow(items, manager is BuyItems ? itemsForSale : playerItems); //TODO: change this so it would work if additional classes other than BuyItems and SellItems exist
         }
     }
 
@@ -43,7 +46,7 @@ public abstract class StoreManager : MonoBehaviour
     {
         foreach(KeyValuePair<GameObject, ItemQuant> entry in itemsForSale)
         {
-            if(entry.Value.GetItem().Equals(item))
+            if(entry.Value.GetItem().Equivalent(item))
             {
                 return entry.Key;
             }
@@ -89,6 +92,8 @@ public abstract class StoreManager : MonoBehaviour
             Destroy(row);
         }
     }
+
+    
     public abstract void ProcessTransaction(GameObject row);
     protected abstract bool ProcessFunds(int reqAmount);
 }

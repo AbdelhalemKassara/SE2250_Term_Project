@@ -22,10 +22,8 @@ public class BuyItems : StoreManager
     }
 
     protected override bool ProcessFunds(int reqAmount)
-    {
-        
-        //remove funds from player if sufficient then return true else return false
-        return true;
+    {         
+        return Inventory.inventory.TakeCash(reqAmount);
     }
 
     public override void ProcessTransaction(GameObject row)
@@ -34,7 +32,7 @@ public class BuyItems : StoreManager
         if(itemsForSale.TryGetValue(row, out itemQuant))
         {
             if(ProcessFunds(itemQuant.GetItemValue())) {
-                //give the player the weapon
+                Inventory.inventory.GiveItem(itemQuant.GetItem());
                 DecQuantity(row, itemQuant);
             } else
             {

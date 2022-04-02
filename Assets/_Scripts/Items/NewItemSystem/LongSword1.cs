@@ -16,20 +16,17 @@ public class LongSword1 : Weapon
 
     //override hashcode method
 
-    public override bool Equals(object obj)
+    public override bool Equivalent(object obj)
     {
         if (obj != null && obj is LongSword1)
         {
             LongSword1 s = (LongSword1)obj;
-            if (s.getAttack().Equals(attackPower) && s.getWear().Equals(wear) &&
+            return s.getAttack().Equals(attackPower) && s.getWear().Equals(wear) &&
                 s.getAttackPowerMult().Equals(attackPowerMult) &&
                 s.getWearMult().Equals(wearMult) && s.GetValue().Equals(value) &&
-                s.GetName().Equals(itemName))
-            {
-                return true;
-            }
+                s.GetName().Equals(itemName);
         }
-
         return false;
     }
+
 }
