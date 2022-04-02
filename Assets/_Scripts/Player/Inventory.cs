@@ -30,7 +30,7 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        Item sword = Sword1.thisItem;
+        Item sword = new Sword1();//.thisItem;
         GiveWeapon(sword);
         // GiveSword(LongSword.sword);
     }
@@ -40,6 +40,7 @@ public class Inventory : MonoBehaviour
         inventory = this;
     }
 
+    // Gives the player cash.
     public void GiveCash(int cash)
     {
         _cash += cash;
@@ -57,6 +58,7 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
+    // Returns the current equipped item.
     public Weapon getCurrentSword()
     {
         return equippedSword;
@@ -68,8 +70,21 @@ public class Inventory : MonoBehaviour
         cashTextLabel.text = "Cash: " + _cash;
     }
 
-    public void RemoveItem(Item item)
+    // Searches for an equivilent item and returns it.
+    private Item FindEquivilentItem(Item item) {
+        foreach (Item _item in items ) {
+            if (item.Equivalent(item)) return _item;
+        }
+        return null;
+    }
+
+
+    // Find an equivalent item from the inventory and remove it.
+    public void RemoveItem(Item findItem)
     {
+        Item item = FindEquivilentItem(findItem);
+        if (item == null) return;
+
         Button button = buttonMap[item];
         items.Remove(item);
         button.gameObject.SetActive(false);
@@ -108,7 +123,7 @@ public class Inventory : MonoBehaviour
             }
         );
     }
-
+    
     void equipWeapon(Weapon weapon)
     {
         if (equippedSword != null)

@@ -60,7 +60,7 @@ public class Combat : MonoBehaviour
     {
 
         //drop items
-        Inventory.inventory.GiveWeapon(LongSword1.thisItem);
+        Inventory.inventory.GiveWeapon(new LongSword1());
         PlayerStats.stats.GiveExp(points);
         PlayerStats.stats.GiveHealth((int)((int)points/2));
         Destroy(gameObject);
