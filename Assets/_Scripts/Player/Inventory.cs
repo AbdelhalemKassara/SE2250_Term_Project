@@ -31,10 +31,14 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         Item sword = new Sword1();//.thisItem;
-        Debug.Log((Sword1)sword == null);
-        Debug.Log("here above");
 
         GiveWeapon(sword);
+        GiveWeapon(sword);
+        GiveWeapon(sword);
+        GiveWeapon(new LongSword1());
+        GiveWeapon(new LongSword1());
+        GiveWeapon(new LongSword1());
+
         // GiveSword(LongSword.sword);
     }
 
@@ -89,7 +93,7 @@ public class Inventory : MonoBehaviour
     public void RemoveItem(Item findItem)
     {
         Item item = FindEquivilentItem(findItem);
-        //if (item == null) return;
+        if (!(item is Weapon || item is Sword1 || item is LongSword1 || item is Item)) return;
 
         Button button = buttonMap[item];
         items.Remove(item);

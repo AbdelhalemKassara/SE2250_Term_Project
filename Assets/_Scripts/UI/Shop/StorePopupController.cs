@@ -34,30 +34,30 @@ public class StorePopupController : MonoBehaviour
         {
             if(setupStore)
             {
-                panel.SetActive(true);
-                
-
                 setupStore = false;
                 unSetupStore = true;
 
+                panel.SetActive(true);
+                
             }
             if (setupSellMenu && sellStore.gameObject.activeSelf)
             {
+                setupSellMenu = false;
+
                 sellStore.AddItemsFromPlayerInventory();
 
-                setupSellMenu = false;
             }
         } else
         {
             if(unSetupStore)
             {
-
-                sellStore.ClearPlayerItems();
-                panel.SetActive(false);
-
                 unSetupStore = false;
                 setupStore = true;
                 setupSellMenu = true;
+
+
+                sellStore.ClearPlayerItems();
+                panel.SetActive(false);
             }
         }   
     }

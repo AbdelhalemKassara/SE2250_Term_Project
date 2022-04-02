@@ -30,13 +30,12 @@ public abstract class StoreManager : MonoBehaviour
         if (row != null && dict.TryGetValue(row, out currentItem))
         {
             RowController rowController = row.GetComponent<RowController>();
-            rowController.updateQuantity(currentItem.GetQuantity() + items.GetQuantity());
             currentItem.IncQuantity();
+            rowController.updateQuantity(currentItem.GetQuantity());
         }
         else
         {
-            Debug.Log("starts here");
-            manager.AddRow(items, dict); //TODO: change this so it would work if additional classes other than BuyItems and SellItems exist
+            manager.AddRow(items, dict); 
         }
     }
 
@@ -58,17 +57,16 @@ public abstract class StoreManager : MonoBehaviour
     //this adds a new row to the table
     public void AddRow(ItemQuant itemQuant, Dictionary<GameObject, ItemQuant> dict)
     {
-        Debug.Log(itemQuant.GetItem().GetName());
 
         Item item = itemQuant.GetItem();
         int quantity = itemQuant.GetQuantity();
 
-        Debug.Log(item.GetName());
 
         GameObject row = Instantiate(menuRow);
         row.GetComponent<Transform>().Find("Item Name").GetComponent<TextMeshProUGUI>().text = item.GetName();
         row.GetComponent<Transform>().Find("Price").GetComponent<TextMeshProUGUI>().text = '$' + item.GetValue().ToString();
         row.GetComponent<Transform>().Find("Quantity").GetComponent<TextMeshProUGUI>().text = 'X' + quantity.ToString();
+
         row.transform.parent = gameObject.transform;
 
         dict.Add(row, itemQuant);
@@ -96,6 +94,7 @@ public abstract class StoreManager : MonoBehaviour
             Destroy(row);
         }
     }
+
 
     
     public abstract void ProcessTransaction(GameObject row);

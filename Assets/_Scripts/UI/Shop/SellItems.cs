@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SellItems : StoreManager
@@ -26,10 +27,12 @@ public class SellItems : StoreManager
         if(playerItems.TryGetValue(row, out playerItemQuant))
         {
             ProcessFunds(playerItemQuant.GetItemValue());
+
             Inventory.inventory.RemoveItem(playerItemQuant.GetItem());
             AddBuyMenuItem(playerItemQuant.GetItem());//adds the item to the buy section of the store
             DecQuantity(row, playerItemQuant);//updates the sell portion of the store
-                       
+
+
         }
 
     }
@@ -37,13 +40,13 @@ public class SellItems : StoreManager
     public void AddItemsFromPlayerInventory()
     {
         Item[] inventory = Inventory.inventory.GetItems();
-        Debug.Log("inventoryLength: " + inventory.Length);
+        Debug.Log(inventory.Length);
         //insert the new items
         foreach(Item item in inventory)
         {
-            Debug.Log(item + "    "+ item.GetName() + " this one here");
+            
             ItemQuant itemQuant = GetItemQuantFromPlayerItems(item);
-            //Debug.Log(itemQuant);
+
             if(itemQuant == null)
             {
                 AddSellMenuItem(item);
@@ -54,12 +57,15 @@ public class SellItems : StoreManager
 
         }
 
+        
         //update the sell table
         foreach(KeyValuePair<GameObject, ItemQuant> entry in playerItems)
         {
-            entry.Key.GetComponent<RowController>().updateQuantity(entry.Value.GetQuantity());
+            int inputVal = entry.Value.GetQuantity();
+            entry.Key.GetComponent<Transform>().Find("Quantity").gameObject.GetComponent<TextMeshProUGUI>().text = 'X' + inputVal.ToString();
         }
     }
+
     private ItemQuant GetItemQuantFromPlayerItems(Item item)
     {
         foreach(KeyValuePair<GameObject, ItemQuant> entry in playerItems)

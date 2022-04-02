@@ -23,7 +23,7 @@ public class RowController : MonoBehaviour
         }
 
     }
-
+   
     void ProcessItem()
     {
         storeManager.ProcessTransaction(gameObject);        
