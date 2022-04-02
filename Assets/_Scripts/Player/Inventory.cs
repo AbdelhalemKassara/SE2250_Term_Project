@@ -31,6 +31,9 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         Item sword = new Sword1();//.thisItem;
+        Debug.Log((Sword1)sword == null);
+        Debug.Log("here above");
+
         GiveWeapon(sword);
         // GiveSword(LongSword.sword);
     }
@@ -75,9 +78,6 @@ public class Inventory : MonoBehaviour
         foreach (Item _item in items ) {
             if (item.Equivalent(_item))
             {
-                Debug.Log("FindEquivilentItem is called");
-                //Debug.Log(_item);
-                Debug.Log(item);
                 return _item;
             }
         }
@@ -89,7 +89,7 @@ public class Inventory : MonoBehaviour
     public void RemoveItem(Item findItem)
     {
         Item item = FindEquivilentItem(findItem);
-        if (item == null) return;
+        //if (item == null) return;
 
         Button button = buttonMap[item];
         items.Remove(item);

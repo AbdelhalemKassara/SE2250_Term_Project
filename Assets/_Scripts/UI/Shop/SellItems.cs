@@ -37,12 +37,13 @@ public class SellItems : StoreManager
     public void AddItemsFromPlayerInventory()
     {
         Item[] inventory = Inventory.inventory.GetItems();
-
+        Debug.Log("inventoryLength: " + inventory.Length);
         //insert the new items
         foreach(Item item in inventory)
         {
+            Debug.Log(item + "    "+ item.GetName() + " this one here");
             ItemQuant itemQuant = GetItemQuantFromPlayerItems(item);
-
+            //Debug.Log(itemQuant);
             if(itemQuant == null)
             {
                 AddSellMenuItem(item);

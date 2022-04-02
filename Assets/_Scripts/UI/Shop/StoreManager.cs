@@ -21,7 +21,7 @@ public abstract class StoreManager : MonoBehaviour
     //this adds the item to the Menu of the store
     public void AddItems(ItemQuant items, StoreManager manager, Dictionary<GameObject, ItemQuant> dict)
     {
-        GameObject row = CheckIfItemExists(items.GetItem());
+        GameObject row = CheckIfItemExists(items.GetItem(), dict);
 
         ItemQuant currentItem;
 
@@ -35,15 +35,16 @@ public abstract class StoreManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("starts here");
             manager.AddRow(items, dict); //TODO: change this so it would work if additional classes other than BuyItems and SellItems exist
         }
     }
 
     //Checks if the store has the same item for sale
     //and returns the row that contains that item
-    private GameObject CheckIfItemExists(Item item)
+    private GameObject CheckIfItemExists(Item item, Dictionary<GameObject, ItemQuant> dict)
     {
-        foreach(KeyValuePair<GameObject, ItemQuant> entry in itemsForSale)
+        foreach(KeyValuePair<GameObject, ItemQuant> entry in dict)
         {
             if(entry.Value.GetItem().Equivalent(item))
             {
@@ -57,8 +58,12 @@ public abstract class StoreManager : MonoBehaviour
     //this adds a new row to the table
     public void AddRow(ItemQuant itemQuant, Dictionary<GameObject, ItemQuant> dict)
     {
+        Debug.Log(itemQuant.GetItem().GetName());
+
         Item item = itemQuant.GetItem();
         int quantity = itemQuant.GetQuantity();
+
+        Debug.Log(item.GetName());
 
         GameObject row = Instantiate(menuRow);
         row.GetComponent<Transform>().Find("Item Name").GetComponent<TextMeshProUGUI>().text = item.GetName();
