@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
             move = move - _player.transform.forward;
         }
 
+        // Jump when the space bar is pressed.
         if (Input.GetKey(KeyCode.Space))
         {
             if (!_jumping)
@@ -109,16 +110,6 @@ public class PlayerController : MonoBehaviour
         Vector3 vel = Vector3.Normalize(move) * speed * running;
         _rigidBody.velocity = new Vector3(vel.x, _rigidBody.velocity.y, vel.z);
 
-        // _rigidBody.velocity = Vector3.Normalize(move) * speed;
-        // _rigidBody.velocity = Vector3.Normalize(move) * speed;
-        // _rigidBody.AddForce(Vector3.Normalize(move), ForceMode.VelocityChange);
-
-        // Vector3 vel = Vector3.Normalize(move);// * speed;
-        // vel.y = _rigidBody.velocity.y;
-        // _rigidBody.AddForce(vel - _rigidBody.velocity, ForceMode.VelocityChange);
-
-        // float velocityZ = Vector3.Dot(move.normalized, transform.forward);
-        // float velocityX = Vector3.Dot(move.normalized, transform.right);
 
         if (move.magnitude > 0)
         {
@@ -128,11 +119,6 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetBool("isRunning", false);
         }
-
-        // transform.Translate(move.normalized * speed * Time.deltaTime, Space.World);
-
-        // _animator.SetFloat("VelocityZ", velocityZ, 0.1f, Time.deltaTime);
-        // _animator.SetFloat("VelocityX", velocityX, 0.1f, Time.deltaTime);
 
         // Rotate Player
         rightButtonDown = Input.GetMouseButtonDown(1) && !IsPointerOverUIObject();
@@ -182,6 +168,7 @@ public class PlayerController : MonoBehaviour
         _attacking = false;
     }
 
+    // Debounce to only allow the player to jump once a second.
     IEnumerator StartJumpDebounce()
     {
         _jumping = true;
