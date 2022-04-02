@@ -11,12 +11,11 @@ public class SellItems : StoreManager
     {
         AddRow(new ItemQuant(new Sword1(), 3), playerItems);
 
-        AddItemsFromPlayerInventory();
     }
 
     protected override bool ProcessFunds(int reqAmount)
     {
-        //give funds to player
+        Inventory.inventory.GiveCash(reqAmount);
         return true;
     }
 
@@ -26,17 +25,52 @@ public class SellItems : StoreManager
         if(playerItems.TryGetValue(row, out playerItemQuant))
         {
             ProcessFunds(playerItemQuant.GetItemValue());
-            //remove item from player inventory
-            AddItem(playerItemQuant.GetItem());//adds the item to the buy section of the store
+            Inventory.inventory.RemoveItem(playerItemQuant.GetItem());
+            AddBuyMenuItem(playerItemQuant.GetItem());//adds the item to the buy section of the store
             DecQuantity(row, playerItemQuant);//updates the sell portion of the store
                        
         }
 
     }
 
-    private void AddItemsFromPlayerInventory()
+    public void AddItemsFromPlayerInventory()
     {
-        //get the items from the player's inventory and add them to the
+        Item[] inventory = Inventory.inventory.GetItems();
+
+        //insert the new items
+        foreach(Item item in inventory)
+        {
+            ItemQuant itemQuant = GetItemQuantFromPlayerItems(item);
+
+            if(itemQuant == null)
+            {
+                AddSellMenuItem(item);
+            } else
+            {
+                itemQuant.IncQuantity();
+            }
+
+        }
+    }
+    private ItemQuant GetItemQuantFromPlayerItems(Item item)
+    {
+        foreach(KeyValuePair<GameObject, ItemQuant> entry in playerItems)
+        {
+            if(entry.Value.GetItem().Equivalent(item))
+            {
+                return entry.Value;
+            }
+        }
+
+        return null;
     }
 
+    public void ClearPlayerItems()
+    {
+        foreach (KeyValuePair<GameObject, ItemQuant> entry in playerItems)
+        {
+            Destroy(entry.Key);//removes all the rows
+        }
+        playerItems = new Dictionary<GameObject, ItemQuant>();
+    }
 }

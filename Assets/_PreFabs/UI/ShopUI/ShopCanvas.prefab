@@ -528,6 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buyMenu: {fileID: 5592900993451456560}
+  stateText: {fileID: 0}
   sellMenu: {fileID: 5592900993391518032}
   btnText: {fileID: 5592900994164199821}
 --- !u!1 &5592900993930463264
@@ -903,6 +904,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  storeManagerNPC: {fileID: 0}
+  sellStore: {fileID: 5592900993391518044}
+  triggerRadSqr: 1
 --- !u!1 &5592900994538179299
 GameObject:
   m_ObjectHideFlags: 0

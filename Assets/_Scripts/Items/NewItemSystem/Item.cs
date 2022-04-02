@@ -23,5 +23,10 @@ public class Item : MonoBehaviour
     public string getType() => type;
 
     public int GetValue() => value;
-    
+
+    public virtual bool Equivalent(object obj)
+    {
+        return Equals(obj);
+    }
+
 }

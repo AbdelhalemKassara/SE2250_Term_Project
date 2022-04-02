@@ -16,20 +16,16 @@ public class Sword1 : Weapon
     }
     //ovveride hascode method 
 
-    public override bool Equals(object obj)
+    public override bool Equivalent(object obj)
     {
         if (obj != null && obj is Sword1)
         {
             Sword1 s = (Sword1)obj;
-            if(s.getAttackPower().Equals(attackPower) && s.getWear().Equals(wear) &&
+            return s.getAttack().Equals(attackPower) && s.getWear().Equals(wear) &&
                 s.getAttackPowerMult().Equals(attackPowerMult) &&
                 s.getWearMult().Equals(wearMult) && s.GetValue().Equals(value) &&
-                s.GetName().Equals(itemName))
-            {
-                return true;
-            }
+                s.GetName().Equals(itemName);   
         }
-
         return false;
     }
 

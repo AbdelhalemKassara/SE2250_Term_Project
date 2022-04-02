@@ -16,6 +16,7 @@ public class ItemQuant
     public Item GetItem() => item;
     public int GetQuantity() => quantity;
     public int GetItemValue() => item.GetValue();
+
     public void DecQuantity()
     {
         quantity--;
@@ -31,10 +32,6 @@ public class ItemQuant
     }
     public override bool Equals(object obj)
     {
-        if(obj is ItemQuant && item.Equals(((ItemQuant)obj).GetItem()))
-        {
-            return true;
-        }
-        return false;
+        return obj is ItemQuant && item.Equivalent(((ItemQuant)obj).GetItem());     
     }
 }
