@@ -5,10 +5,15 @@ using UnityEngine;
 public class MercenaryAttacks : IAttacks
 {
 
-    public async void AttackEnemies(int damage)
+    public void AttackEnemies(int damage)
     {
 
         // enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (Combat.enemies == null) {
+            Debug.Log("Combat.enemies is null");
+            return;
+        }
+
         foreach(GameObject enemy in Combat.enemies) {
             // GameObject enemy = Combat.enemies[i];
             Debug.Log("enemy");
@@ -109,16 +114,6 @@ public class MercenaryAttacks : IAttacks
 
     public void Idle(Animator animator)
     {
-        // if (animator.GetCurrentAnimatorStateInfo(0).IsName("idle"))
-        //     return;
-        // if (animator.GetBool("idle"))
-        //     return;
-
-        // if (
-        //     animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1
-        //     && !animator.IsInTransition(0)
-        // )
-        //     return;
         animator.SetTrigger("idle");
         Debug.Log("trigger idle");
     }

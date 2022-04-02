@@ -66,7 +66,7 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        //StartCoroutine(ExpTest());
+        // StartCoroutine(ExpTest());
     }
 
     // Check what keys are being pressed to move the player.
@@ -154,7 +154,8 @@ public class PlayerStats : MonoBehaviour
 
     IEnumerator ExpTest()
     {
-        DamagePlayer(10);
+        // DamagePlayer(10);
+        Inventory.inventory.GiveCash(10);
         //yield on a new YieldInstruction that waits for .5 seconds.
         yield return new WaitForSeconds(1f);
 

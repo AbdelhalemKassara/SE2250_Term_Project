@@ -9,7 +9,7 @@ public class Weapon : Item
     [SerializeField] protected float attackPowerMult;
     [SerializeField] protected float wearMult;
 
-    public float getAttackPower() => attackPower;
+    public int getAttack() => (int)attackPower;
     public float getWear() => wear;
     public float getAttackPowerMult() => attackPowerMult;
     public float getWearMult() => wearMult;

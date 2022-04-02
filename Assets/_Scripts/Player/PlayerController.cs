@@ -17,9 +17,17 @@ public class PlayerController : MonoBehaviour
 
     private bool rightButtonDown = false;
 
-    public Vector3 getPosition() {
+    public Vector3 getPosition()
+    {
         return transform.position;
     }
+
+    public static void setAttacks(IAttacks attacks)
+    {
+        // _attack.Idle(_animator);
+        _attack = attacks;
+    }
+
     public static IAttacks getAnimations()
     {
         return _attack;
@@ -36,7 +44,8 @@ public class PlayerController : MonoBehaviour
         controller = this;
     }
 
-    public void Respawn() {
+    public void Respawn()
+    {
         _attack.Idle(_animator);
     }
 
@@ -54,6 +63,14 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = Vector3.zero;
         float speed = 8f;
+        float running = 1f;
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            running = 1.5f;
+        }
+        _animator.speed = running;
+
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             move = move - _player.transform.right;
@@ -74,7 +91,7 @@ public class PlayerController : MonoBehaviour
             move = move - _player.transform.forward;
         }
 
-        Vector3 vel = Vector3.Normalize(move) * speed;
+        Vector3 vel = Vector3.Normalize(move) * speed * running;
         _rigidBody.velocity = new Vector3(vel.x, _rigidBody.velocity.y, vel.z);
 
         // _rigidBody.velocity = Vector3.Normalize(move) * speed;
