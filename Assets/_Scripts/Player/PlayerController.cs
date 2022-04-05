@@ -92,6 +92,11 @@ public class PlayerController : MonoBehaviour
             move = move - _player.transform.forward;
         }
 
+        if (Input.GetKey(KeyCode.R) )
+        {
+            CharacterSelection.Respawn();
+        }
+
         // Jump when the space bar is pressed.
         if (Input.GetKey(KeyCode.Space))
         {

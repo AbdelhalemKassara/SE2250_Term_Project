@@ -6,23 +6,27 @@ using TMPro;
 
 public class PlayerStats : MonoBehaviour
 {
+
     public static PlayerStats stats;
-    private int _sta = 0;
-    private int _str = 0;
-    private int _int = 0;
-    private int _dex = 0;
 
-    private int _availableStats = 0;
-    private int _addSta = 0;
-    private int _addStr = 0;
-    private int _addInt = 0;
-    private int _addDex = 0;
+    //everything below here was changed to static
+    private static int _sta = 0;
+    private static int _str = 0;
+    private static int _int = 0;
+    private static int _dex = 0;
 
-    private int _level = 1;
-    private int _exp = 0;
-    private int _maxExp = 100;
-    public int _hp = 100;
-    private int _maxHp = 100;
+    private static int _availableStats = 0;
+    private static int _addSta = 0;
+    private static int _addStr = 0;
+    private static int _addInt = 0;
+    private static int _addDex = 0;
+     
+    private static int _level = 1;
+    private static int _exp = 0;
+    private static int _maxExp = 100;
+    public static int _hp = 100;
+    private static int _maxHp = 100;
+    //everthing above here ...
 
     public TextMeshProUGUI levelGUI;
     public TextMeshProUGUI hpGUI;

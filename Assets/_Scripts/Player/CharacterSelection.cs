@@ -17,26 +17,41 @@ public class CharacterSelection : MonoBehaviour
 
     public string GetCharacterType() => _characterType;
 
+    private static bool characterSelected = false;
     // public static GameObject getRightHand() {
     //     if (player == null) return null;
     //     return player.transform.Find("Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right Forearm/Right Hand").gameObject;
     // }
 
     // Start is called before the first frame update
+
+    private static CharacterSelection _this;
+
+    void Awake()
+    {
+        if (_this != null)
+            return;
+        _this = this;
+    }
+
     void Start()
     {
+        if(characterSelected)
+        {
+            closeMenu();
+            Respawn();
+            return;
+        }
         mercenaryButton.onClick.AddListener(
             delegate
             {
                 Debug.Log("Mercenary Selected");
                 _characterType = "Mercenary";
 
-                player = (GameObject)Instantiate(
-                    mercenaryPrefab,
-                    getSpawnLocation(),
-                    Quaternion.identity
-                );
+                player = Spawn(mercenaryPrefab);
                 closeMenu();
+                Inventory.inventory.GiveWeapon(new Sword1());
+                characterSelected = true;
             }
         );
         archerButton.onClick.AddListener(
@@ -46,12 +61,10 @@ public class CharacterSelection : MonoBehaviour
                 _characterType = "Archer";
                 PlayerController.setAttacks(new ArcherAttacks());
 
-                player = (GameObject)Instantiate(
-                    archerPrefab,
-                    getSpawnLocation(),
-                    Quaternion.identity
-                );
+                player = Spawn(archerPrefab);
                 closeMenu();
+                Inventory.inventory.GiveWeapon(new Bow());
+                characterSelected = true;
             }
         );
         magicianButton.onClick.AddListener(
@@ -59,10 +72,35 @@ public class CharacterSelection : MonoBehaviour
             {
                 Debug.Log("Magician Selected");
                 _characterType = "Magician";
+                PlayerController.setAttacks(new MagicianAttacks());
 
+                player = Spawn(magicianPrefab);
                 closeMenu();
+                Inventory.inventory.GiveWeapon(new Wand());
+                characterSelected = true;
             }
         );
+    }
+
+    public static void Respawn()
+    {
+        if (player != null)
+            Destroy(player);
+
+        Inventory.inventory.UnequipMain();
+        
+        if (_characterType == "Mercenary")
+            _this.Spawn(_this.mercenaryPrefab);
+        else if (_characterType == "Archer")
+            _this.Spawn(_this.archerPrefab);
+        else
+            _this.Spawn(_this.magicianPrefab);
+    }
+
+    private GameObject Spawn(Object prefab)
+    {
+        player = (GameObject)Instantiate(magicianPrefab, getSpawnLocation(), Quaternion.identity);
+        return player;
     }
 
     Vector3 getSpawnLocation()
