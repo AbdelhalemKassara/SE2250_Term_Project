@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 335f13cab83ea45c0a634ad9c2893278
+guid: 42e56f8cc1aa04eada69f2da2b0df96a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - SwordPrefab: {fileID: 8503533810927529166, guid: 164dd770f69794727b362df901bc1a82, type: 3}
+  - item: {fileID: 3607090553356194394, guid: 0566f3e8c2c0c416ab2f6fc365d49714, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
