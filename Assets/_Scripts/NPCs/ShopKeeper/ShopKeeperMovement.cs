@@ -6,9 +6,6 @@ public class ShopKeeperMovement : Movement
 {
     public float lookTriggerRad;
 
-    [SerializeField] private GameObject playerUI;
-    [SerializeField] private GameObject storeUI;
-
     // Update is called once per frame
     protected void Update()
     {
