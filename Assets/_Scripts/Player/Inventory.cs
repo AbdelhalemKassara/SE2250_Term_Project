@@ -21,8 +21,8 @@ public class Inventory : MonoBehaviour
     private static List<Item> items = new List<Item>();
     private static Dictionary<Item, Button> buttonMap = new Dictionary<Item, Button>();
 
-    private Weapon equippedSword;
-    private GameObject equippedSwordObject;
+    private Weapon equippedWeapon;
+    private GameObject equippedWeaponObject;
 
     public GameObject buttonPrefab;
 
@@ -35,6 +35,16 @@ public class Inventory : MonoBehaviour
         // GiveWeapon(new LongSword1());
         // GiveWeapon(new Bow());
         // GiveWeapon(new Wand());
+    }
+
+    public void UnequipMain()
+    {
+        if (equippedWeapon == null) return;
+        Destroy(equippedWeaponObject);
+        GiveWeapon(equippedWeapon);
+        equippedButton.gameObject.SetActive(false);
+        equippedWeapon = null;
+        equippedButton = null;
     }
 
     void Awake()
@@ -63,7 +73,7 @@ public class Inventory : MonoBehaviour
     // Returns the current equipped item.
     public Weapon getCurrentSword()
     {
-        return equippedSword;
+        return equippedWeapon;
     }
 
     // Update is called once per frame
@@ -73,8 +83,10 @@ public class Inventory : MonoBehaviour
     }
 
     // Searches for an equivilent item and returns it.
-    private Item FindEquivilentItem(Item item) {
-        foreach (Item _item in items ) {
+    private Item FindEquivilentItem(Item item)
+    {
+        foreach (Item _item in items)
+        {
             if (item.Equivalent(_item))
             {
                 return _item;
@@ -83,22 +95,22 @@ public class Inventory : MonoBehaviour
         return null;
     }
 
-
     // Find an equivalent item from the inventory and remove it.
     public void RemoveItem(Item findItem)
     {
         Item item = FindEquivilentItem(findItem);
-        if (!(item is Weapon || item is Sword1 || item is LongSword1 || item is Item)) return;
+        if (!(item is Weapon || item is Sword1 || item is LongSword1 || item is Item))
+            return;
 
-        Button button = buttonMap[item];//TODO: there is only one item object that gets added to the button dictionary
+        Button button = buttonMap[item]; //TODO: there is only one item object that gets added to the button dictionary
         items.Remove(item);
         //button.gameObject.SetActive(false);
         Debug.Log(dictString(buttonMap));
         Destroy(button.gameObject);
-        if (item == equippedSword)
+        if (item == equippedWeapon)
         {
-            Destroy(equippedSwordObject);
-            equippedSword = null;
+            Destroy(equippedWeaponObject);
+            equippedWeapon = null;
             equippedButton = null;
         }
     }
@@ -106,13 +118,14 @@ public class Inventory : MonoBehaviour
     public string dictString(Dictionary<Item, Button> dict)
     {
         string str = "";
-        foreach(KeyValuePair<Item, Button> entry in dict)
+        foreach (KeyValuePair<Item, Button> entry in dict)
         {
             str += ", (" + entry.Key + ", " + entry.Value + ")";
         }
 
         return str;
     }
+
     public void GiveItem(Item item)
     {
         if (item.getType() == "Weapon")
@@ -140,13 +153,13 @@ public class Inventory : MonoBehaviour
             }
         );
     }
-    
+
     void equipWeapon(Weapon weapon)
     {
-        if (equippedSword != null)
+        if (equippedWeapon != null)
         {
-            Destroy(equippedSwordObject);
-            GiveWeapon(equippedSword);
+            Destroy(equippedWeaponObject);
+            GiveWeapon(equippedWeapon);
             equippedButton.gameObject.SetActive(false);
         }
 
@@ -154,9 +167,9 @@ public class Inventory : MonoBehaviour
         if (rightHand == null)
             return;
 
-        equippedSword = weapon;
-        equippedSwordObject = weapon.getObject();
-        equippedSwordObject.transform.SetParent(rightHand.transform, false);
+        equippedWeapon = weapon;
+        equippedWeaponObject = weapon.getObject();
+        equippedWeaponObject.transform.SetParent(rightHand.transform, false);
 
         Button button = Instantiate(buttonPrefab).GetComponent<Button>();
         button.transform.SetParent(rightHandGui.transform, false);
@@ -168,10 +181,10 @@ public class Inventory : MonoBehaviour
         button.onClick.AddListener(
             delegate
             {
-                Destroy(equippedSwordObject);
+                Destroy(equippedWeaponObject);
                 GiveWeapon(weapon);
                 button.gameObject.SetActive(false);
-                equippedSword = null;
+                equippedWeapon = null;
                 equippedButton = null;
             }
         );

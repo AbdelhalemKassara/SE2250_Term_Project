@@ -74,13 +74,23 @@ public class CharacterSelection : MonoBehaviour
 
     public static void Respawn()
     {
-        // if ()
-        // Spawn(magicianPrefab);
+        if (player != null)
+            Destroy(player);
+
+        Inventory.inventory.UnequipMain();
+        
+        if (_characterType == "Mercenary")
+            _this.Spawn(_this.mercenaryPrefab);
+        else if (_characterType == "Archer")
+            _this.Spawn(_this.archerPrefab);
+        else
+            _this.Spawn(_this.magicianPrefab);
     }
 
     private GameObject Spawn(Object prefab)
     {
-        return (GameObject)Instantiate(magicianPrefab, getSpawnLocation(), Quaternion.identity);
+        player = (GameObject)Instantiate(magicianPrefab, getSpawnLocation(), Quaternion.identity);
+        return player;
     }
 
     Vector3 getSpawnLocation()
