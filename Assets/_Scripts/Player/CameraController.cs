@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
     float maxUpAngle = 85;
     float minUpAngle = -85;
 
-    float distance = 5f;
+    float distance = 3f;
     float minDistance = 1;
     float maxDistance = 7;
 

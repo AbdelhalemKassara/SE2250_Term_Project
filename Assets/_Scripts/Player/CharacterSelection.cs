@@ -17,6 +17,7 @@ public class CharacterSelection : MonoBehaviour
 
     public string GetCharacterType() => _characterType;
 
+    private static bool characterSelected = false;
     // public static GameObject getRightHand() {
     //     if (player == null) return null;
     //     return player.transform.Find("Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right Forearm/Right Hand").gameObject;
@@ -35,6 +36,12 @@ public class CharacterSelection : MonoBehaviour
 
     void Start()
     {
+        if(characterSelected)
+        {
+            closeMenu();
+            Respawn();
+            return;
+        }
         mercenaryButton.onClick.AddListener(
             delegate
             {
@@ -44,6 +51,7 @@ public class CharacterSelection : MonoBehaviour
                 player = Spawn(mercenaryPrefab);
                 closeMenu();
                 Inventory.inventory.GiveWeapon(new Sword1());
+                characterSelected = true;
             }
         );
         archerButton.onClick.AddListener(
@@ -56,6 +64,7 @@ public class CharacterSelection : MonoBehaviour
                 player = Spawn(archerPrefab);
                 closeMenu();
                 Inventory.inventory.GiveWeapon(new Bow());
+                characterSelected = true;
             }
         );
         magicianButton.onClick.AddListener(
@@ -68,6 +77,7 @@ public class CharacterSelection : MonoBehaviour
                 player = Spawn(magicianPrefab);
                 closeMenu();
                 Inventory.inventory.GiveWeapon(new Wand());
+                characterSelected = true;
             }
         );
     }

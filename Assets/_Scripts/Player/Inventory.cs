@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
     // public GameObject rightHand;
     public GameObject leftHand;
     public TextMeshProUGUI cashTextLabel;
-    private int _cash = 0;
+    private static int _cash = 0;
 
     public static Inventory inventory;
 
