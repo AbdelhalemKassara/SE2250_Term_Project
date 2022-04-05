@@ -7,17 +7,23 @@ public class GuideMovement : Movement
     public float lookTriggerRad;
     [SerializeField] private GameObject walkTo;
     [SerializeField] private GameObject storeUI;
-    private float time;
+
+
+    [SerializeField] private float movementSpeed;
 
     [SerializeField] private float distStraight1;
     [SerializeField] private float distStraight2;
-    private float timeStraight1;
-    private float timeStraight2;
+
+    private float nextTimeStraight1;
+    private float nextTimeStraight2;
 
     private void Start()
     {
-        time = Time.time;
+        nextTimeStraight1 = Time.time + (distStraight1 / movementSpeed);
+        nextTimeStraight2 = Time.time;
+
     }
+
     // Update is called once per frame
     protected void Update()
     {
@@ -41,7 +47,9 @@ public class GuideMovement : Movement
             rotateBodyTowardsPlayer();
         } else
         {
+            //constant movenment here
 
+            //if()
         }
 
 

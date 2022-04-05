@@ -12,6 +12,12 @@ public class Animation : MonoBehaviour
     public string attack;
     public string die;
     public string idle;
+    [SerializeField] private float deathAnimationTime;
+
+    public float getDeathAnimationTime()
+    {
+        return deathAnimationTime;
+    }
 
     public void WalkForward()
     {

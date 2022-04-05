@@ -29,6 +29,11 @@ public class EnemyMovement : Movement
             return;
         }
 
+        if(GetComponent<Combat>().getIsEnemyDead())
+        {
+            return;
+        }
+
         base.Update();
 
         calTarget();
