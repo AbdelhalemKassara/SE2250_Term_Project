@@ -40,10 +40,15 @@ public class Movement : MonoBehaviour
         Vector3 direction = Vector3.RotateTowards(transform.forward, playerDirection, rotationSpeed * Time.deltaTime, 0.0f);
         transform.rotation = Quaternion.LookRotation(direction);
     }
-    protected void moveTowardsPlayer()
+    protected void walkTowardsPlayer()
     {
         //this sets the target position from the player
         transform.position = Vector3.MoveTowards(transform.position, target, movenmentSpeed * Time.deltaTime);
         GetComponent<Animation>().WalkForward();
+    }
+    protected void runTowardsPlayer()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, target, movenmentSpeed * Time.deltaTime);
+        GetComponent<Animation>().RunForward();
     }
 }
