@@ -1043,7 +1043,7 @@ GameObject:
   - component: {fileID: 1633099356731604804}
   m_Layer: 0
   m_Name: MK_UseThis
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1101,8 +1101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   lookingAt: {fileID: 3360291979124761461}
-  rotationSpeed: 1
-  movenmentSpeed: 1
+  rotationSpeed: 2
+  movenmentSpeed: 3
   invertFace: -1
   offsetDist: 1
   triggerWalkRad: 0
@@ -1219,9 +1219,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 100
-  maxHealth: 50
+  maxHealth: 75
   attackPower: 5
-  btwnAttacksTime: 2.5
+  btwnAttacksTime: 1.5
   healthBar: {fileID: 6025005303898596513}
   swordProb: 0.25
   longSwordProb: 0.75

@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 5286321410649879807}
   m_Layer: 0
   m_Name: usethis_monster_orc
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -581,7 +581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   lookingAt: {fileID: 3239343105565520825}
-  rotationSpeed: 1
+  rotationSpeed: 2
   movenmentSpeed: 2
   invertFace: 1
   offsetDist: 1
@@ -684,9 +684,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262cfde91d7df4e39b9c80d52951687c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: 0
-  maxHealth: 100
-  attackPower: 0
+  points: 5
+  maxHealth: 25
+  attackPower: 2
   btwnAttacksTime: 2
   healthBar: {fileID: 1509183875070620022}
   swordProb: 0.5

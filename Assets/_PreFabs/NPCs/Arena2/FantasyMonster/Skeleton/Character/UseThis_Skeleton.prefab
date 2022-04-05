@@ -1899,10 +1899,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262cfde91d7df4e39b9c80d52951687c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points: 10
-  maxHealth: 50
-  attackPower: 1
-  btwnAttacksTime: 2.5
+  points: 300
+  maxHealth: 150
+  attackPower: 10
+  btwnAttacksTime: 1
   healthBar: {fileID: 1917368876877147752}
   swordProb: 0.5
   longSwordProb: 0.75
@@ -1920,8 +1920,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   lookingAt: {fileID: 2881075468931082719}
-  rotationSpeed: 1
-  movenmentSpeed: 1
+  rotationSpeed: 2
+  movenmentSpeed: 4
   invertFace: 1
   offsetDist: 1
   triggerWalkRad: 5
