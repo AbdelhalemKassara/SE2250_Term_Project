@@ -20,6 +20,20 @@ public class EnemyMovement : Movement
     // Update is called once per frame
     protected void Update()
     {
+        if (CharacterSelection.isPlayerReady())
+        {
+            player = CharacterSelection.getPlayer();
+        }
+        else
+        {
+            return;
+        }
+
+        if(GetComponent<Combat>().getIsEnemyDead())
+        {
+            return;
+        }
+
         base.Update();
 
         calTarget();
