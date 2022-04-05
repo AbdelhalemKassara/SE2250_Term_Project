@@ -23,6 +23,16 @@ public class CharacterSelection : MonoBehaviour
     // }
 
     // Start is called before the first frame update
+
+    private static CharacterSelection _this;
+
+    void Awake()
+    {
+        if (_this != null)
+            return;
+        _this = this;
+    }
+
     void Start()
     {
         mercenaryButton.onClick.AddListener(
@@ -31,12 +41,9 @@ public class CharacterSelection : MonoBehaviour
                 Debug.Log("Mercenary Selected");
                 _characterType = "Mercenary";
 
-                player = (GameObject)Instantiate(
-                    mercenaryPrefab,
-                    getSpawnLocation(),
-                    Quaternion.identity
-                );
+                player = Spawn(mercenaryPrefab);
                 closeMenu();
+                Inventory.inventory.GiveWeapon(new Sword1());
             }
         );
         archerButton.onClick.AddListener(
@@ -46,12 +53,9 @@ public class CharacterSelection : MonoBehaviour
                 _characterType = "Archer";
                 PlayerController.setAttacks(new ArcherAttacks());
 
-                player = (GameObject)Instantiate(
-                    archerPrefab,
-                    getSpawnLocation(),
-                    Quaternion.identity
-                );
+                player = Spawn(archerPrefab);
                 closeMenu();
+                Inventory.inventory.GiveWeapon(new Bow());
             }
         );
         magicianButton.onClick.AddListener(
@@ -59,10 +63,24 @@ public class CharacterSelection : MonoBehaviour
             {
                 Debug.Log("Magician Selected");
                 _characterType = "Magician";
+                PlayerController.setAttacks(new MagicianAttacks());
 
+                player = Spawn(magicianPrefab);
                 closeMenu();
+                Inventory.inventory.GiveWeapon(new Wand());
             }
         );
+    }
+
+    public static void Respawn()
+    {
+        // if ()
+        // Spawn(magicianPrefab);
+    }
+
+    private GameObject Spawn(Object prefab)
+    {
+        return (GameObject)Instantiate(magicianPrefab, getSpawnLocation(), Quaternion.identity);
     }
 
     Vector3 getSpawnLocation()
