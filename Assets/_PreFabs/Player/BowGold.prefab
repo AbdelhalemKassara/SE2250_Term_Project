@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3607090553356194399}
   - component: {fileID: 3607090553356194396}
   m_Layer: 0
-  m_Name: Bow
+  m_Name: BowGold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

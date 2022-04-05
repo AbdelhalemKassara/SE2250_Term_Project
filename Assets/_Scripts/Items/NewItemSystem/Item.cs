@@ -23,7 +23,7 @@ public class Item : MonoBehaviour
 
     public string GetName() => itemName;
     public GameObject GetItem() => item;//returns the gameobject that this script is attached to
-    public GameObject getObject() => (GameObject)Instantiate(itemMap[GetName()].item, Vector3.zero, Quaternion.identity);
+    public GameObject getObject() => (GameObject)Instantiate(itemMap[GetName()].item, itemMap[GetName()].item.transform.position, itemMap[GetName()].item.transform.rotation);
 
     public string getType() => type;
 

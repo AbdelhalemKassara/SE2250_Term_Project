@@ -30,16 +30,10 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        Item sword = new Sword1();//.thisItem;
-
-        GiveWeapon(sword);
-        GiveWeapon(sword);
-        GiveWeapon(sword);
+        // Item sword = new Sword1();//.thisItem;
+        GiveWeapon(new Sword1());
         GiveWeapon(new LongSword1());
-        GiveWeapon(new LongSword1());
-        GiveWeapon(new LongSword1());
-
-        // GiveSword(LongSword.sword);
+        GiveWeapon(new Bow());
     }
 
     void Awake()
