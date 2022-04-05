@@ -1993,7 +1993,9 @@ PrefabInstance:
       propertyPath: cashTextLabel
       value: 
       objectReference: {fileID: 688222926}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6918134716181283039, guid: 0ca03cc2724c443fcb44fc0c96edd6ba, type: 3}
+    - {fileID: 6918134716181283008, guid: 0ca03cc2724c443fcb44fc0c96edd6ba, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0ca03cc2724c443fcb44fc0c96edd6ba, type: 3}
 --- !u!1 &6918134715652849425 stripped
 GameObject:
