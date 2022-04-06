@@ -11,6 +11,8 @@ MonoImporter:
   - mercenaryPrefab: {fileID: 2483951213387714495, guid: ad7d0c7ce554740e391206981243f9df, type: 3}
   - archerPrefab: {fileID: 1840263304055874954, guid: bc186adbd365b4d54912752ca66a8739, type: 3}
   - magicianPrefab: {fileID: 2483951213387714495, guid: 437fd2e2b5d144812a3fd9817a0e1374, type: 3}
+  - spell1: {fileID: 5556777041213785837, guid: 126b4a629c27b45ad83495843c628834, type: 3}
+  - arrow1: {fileID: 5556777041213785837, guid: 126b4a629c27b45ad83495843c628834, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

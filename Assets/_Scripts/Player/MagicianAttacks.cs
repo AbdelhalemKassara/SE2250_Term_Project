@@ -4,39 +4,51 @@ using UnityEngine;
 
 public class MagicianAttacks : IAttacks
 {
-    public void AttackEnemies(int damage)
+    // public GameObject projectile1;
+    // public GameObject projectile2;
+    // public GameObject projectile3;
+    // public GameObject projectile4;
+
+    public void AttackEnemies(int damage, GameObject projectile)
     {
-        // enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (Combat.enemies == null)
-        {
-            Debug.Log("Combat.enemies is null");
-            return;
-        }
+        // projectile = projectile != null ? projectile: projectile1;
+        // Vector3 mouse = PlayerController.GetMousePosition();
+        Vector3 look = CharacterSelection.getPlayer().transform.forward;
+        Vector3 position = CharacterSelection.getPlayer().transform.position + look + new Vector3(0,1,0);
 
-        foreach (GameObject enemy in Combat.enemies)
-        {
-            // GameObject enemy = Combat.enemies[i];
-            Debug.Log("enemy");
-            Debug.Log(enemy);
+        Projectile.LaunchProjectile(projectile, position , position + (look * 2), 10);
 
-            if (!enemy)
-                continue;
+        // // enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        // if (Combat.enemies == null)
+        // {
+        //     Debug.Log("Combat.enemies is null");
+        //     return;
+        // }
 
-            Combat combat = enemy.GetComponent<Combat>();
-            if (!combat)
-                continue;
+        // foreach (GameObject enemy in Combat.enemies)
+        // {
+        //     // GameObject enemy = Combat.enemies[i];
+        //     Debug.Log("enemy");
+        //     Debug.Log(enemy);
 
-            Debug.Log("combat");
-            Debug.Log(combat);
+        //     if (!enemy)
+        //         continue;
 
-            Vector3 offset = PlayerController.controller.getPosition() - combat.getPosition();
+        //     Combat combat = enemy.GetComponent<Combat>();
+        //     if (!combat)
+        //         continue;
 
-            if (offset.magnitude <= 2)
-            {
-                Debug.Log("Damage!!");
-                combat.damageEnemy(damage);
-            }
-        }
+        //     Debug.Log("combat");
+        //     Debug.Log(combat);
+
+        //     Vector3 offset = PlayerController.controller.getPosition() - combat.getPosition();
+
+        //     if (offset.magnitude <= 2)
+        //     {
+        //         Debug.Log("Damage!!");
+        //         combat.damageEnemy(damage);
+        //     }
+        // }
     }
 
     public int getDamage(int movePower)
@@ -54,12 +66,12 @@ public class MagicianAttacks : IAttacks
     {
         Debug.Log("trigger idle archer");
 
-        string animationName = "shoot";
+        string animationName = "spell";
 
         if (animator.GetBool(animationName))
             return;
         animator.SetTrigger(animationName);
-        AttackEnemies(getDamage(1));
+        AttackEnemies(getDamage(1), CharacterSelection.GetSpell1());
     }
 
     public void Attack1(Animator animator)
@@ -67,7 +79,7 @@ public class MagicianAttacks : IAttacks
         if (animator.GetBool("kick"))
             return;
         animator.SetTrigger("kick");
-        AttackEnemies(getDamage(2));
+        AttackEnemies(getDamage(2), CharacterSelection.GetSpell1());
     }
 
     public void Attack2(Animator animator)
@@ -83,7 +95,7 @@ public class MagicianAttacks : IAttacks
         )
             return;
         animator.SetTrigger("swordFlip");
-        AttackEnemies(getDamage(3));
+        AttackEnemies(getDamage(3), CharacterSelection.GetSpell1());
     }
 
     public void Swing(Animator animator)
@@ -101,7 +113,7 @@ public class MagicianAttacks : IAttacks
         )
             return;
         animator.SetTrigger(animationName);
-        AttackEnemies(getDamage(2));
+        AttackEnemies(getDamage(2), CharacterSelection.GetSpell1());
     }
 
     public void Death(Animator animator)
