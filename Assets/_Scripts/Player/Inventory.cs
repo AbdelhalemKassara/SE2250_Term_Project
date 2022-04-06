@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class Inventory : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
+
         // Item sword = new Sword1();//.thisItem;
         // GiveWeapon(new Sword1());
         // GiveWeapon(new LongSword1());
@@ -76,10 +78,22 @@ public class Inventory : MonoBehaviour
         return equippedWeapon;
     }
 
+    bool once = true;
     // Update is called once per frame
     void Update()
     {
         cashTextLabel.text = "Cash: " + _cash;
+
+        if(once)
+        {
+            once = false;
+            foreach (Item item in items)
+            {
+                GiveWeapon(item);
+            }
+        }
+        
+       
     }
 
     // Searches for an equivilent item and returns it.
