@@ -66,7 +66,7 @@ public class MagicianAttacks : IAttacks
     {
         Debug.Log("trigger idle archer");
 
-        string animationName = "shoot";
+        string animationName = "spell";
 
         if (animator.GetBool(animationName))
             return;

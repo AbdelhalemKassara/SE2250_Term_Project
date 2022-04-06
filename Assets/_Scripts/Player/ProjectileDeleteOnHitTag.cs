@@ -7,6 +7,7 @@ public class ProjectileDeleteOnHitTag : MonoBehaviour
     public string tag;
     private bool _hit = false;
 
+    private
     // Start is called before the first frame update
     void Start() { }
 
@@ -15,17 +16,19 @@ public class ProjectileDeleteOnHitTag : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hit object");
         if (_hit)
             return;
 
         if (other.CompareTag(tag))
         {
-            if (tag == "Player")
+            if (tag == "Enemy")
             {
                 _hit = true;
-                Debug.Log("Hit player");
-                PlayerStats.stats.DamagePlayer(2);
+                Debug.Log("Hit Enemy");
+                Combat combat = other.GetComponent<Combat>();
+                if (!combat)
+                    return;
+                combat.damageEnemy(5);
             }
         }
     }
