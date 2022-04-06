@@ -4,39 +4,15 @@ using UnityEngine;
 
 public class ArcherAttacks : IAttacks
 {
-    public void AttackEnemies(int damage)
+    public void AttackEnemies(int damage, GameObject projectile)
     {
-        // enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (Combat.enemies == null)
-        {
-            Debug.Log("Combat.enemies is null");
-            return;
-        }
+        // projectile = projectile != null ? projectile: projectile1;
+        // Vector3 mouse = PlayerController.GetMousePosition();
+        Vector3 look = CharacterSelection.getPlayer().transform.forward;
+        Vector3 position =
+            CharacterSelection.getPlayer().transform.position + look + new Vector3(0, 1, 0);
 
-        foreach (GameObject enemy in Combat.enemies)
-        {
-            // GameObject enemy = Combat.enemies[i];
-            Debug.Log("enemy");
-            Debug.Log(enemy);
-
-            if (!enemy)
-                continue;
-
-            Combat combat = enemy.GetComponent<Combat>();
-            if (!combat)
-                continue;
-
-            Debug.Log("combat");
-            Debug.Log(combat);
-
-            Vector3 offset = PlayerController.controller.getPosition() - combat.getPosition();
-
-            if (offset.magnitude <= 2)
-            {
-                Debug.Log("Damage!!");
-                combat.damageEnemy(damage);
-            }
-        }
+        Projectile.LaunchProjectile(projectile, position, position + (look * 2), 10);
     }
 
     public int getDamage(int movePower)
@@ -59,7 +35,7 @@ public class ArcherAttacks : IAttacks
         if (animator.GetBool(animationName))
             return;
         animator.SetTrigger(animationName);
-        AttackEnemies(getDamage(1));
+        AttackEnemies(getDamage(1), CharacterSelection.GetArrow1());
     }
 
     public void Attack1(Animator animator)
@@ -67,7 +43,7 @@ public class ArcherAttacks : IAttacks
         if (animator.GetBool("kick"))
             return;
         animator.SetTrigger("kick");
-        AttackEnemies(getDamage(2));
+        AttackEnemies(getDamage(1), CharacterSelection.GetArrow1());
     }
 
     public void Attack2(Animator animator)
@@ -83,7 +59,7 @@ public class ArcherAttacks : IAttacks
         )
             return;
         animator.SetTrigger("swordFlip");
-        AttackEnemies(getDamage(3));
+        AttackEnemies(getDamage(3), CharacterSelection.GetArrow1());
     }
 
     public void Swing(Animator animator)
@@ -101,7 +77,7 @@ public class ArcherAttacks : IAttacks
         )
             return;
         animator.SetTrigger(animationName);
-        AttackEnemies(getDamage(2));
+        AttackEnemies(getDamage(2), CharacterSelection.GetArrow1());
     }
 
     public void Death(Animator animator)
