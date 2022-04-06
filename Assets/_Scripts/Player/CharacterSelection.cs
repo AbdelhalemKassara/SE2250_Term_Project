@@ -15,6 +15,9 @@ public class CharacterSelection : MonoBehaviour
     private static GameObject player;
     private static string _characterType = "Mercenary";
 
+    public GameObject spell1;
+    public GameObject arrow1;
+
     public string GetCharacterType() => _characterType;
 
     // public static GameObject getRightHand() {
@@ -26,6 +29,8 @@ public class CharacterSelection : MonoBehaviour
 
     private static CharacterSelection _this;
 
+    public static GameObject GetSpell1() => _this.spell1;
+    public static GameObject GetArrow1() => _this.arrow1;
     void Awake()
     {
         if (_this != null)

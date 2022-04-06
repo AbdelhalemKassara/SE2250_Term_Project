@@ -14,6 +14,13 @@ public class PlayerController : MonoBehaviour
     private bool _attacking = false;
     private bool _jumping = false;
 
+    private static Vector3 worldPosition = new Vector3();
+
+    public static Vector3 GetMousePosition()
+    {
+        return worldPosition;
+    }
+
     private static IAttacks _attack = new MercenaryAttacks();
 
     private bool rightButtonDown = false;
@@ -62,6 +69,13 @@ public class PlayerController : MonoBehaviour
         if (PlayerStats.stats.IsDead())
             return;
 
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitData;
+        if (Physics.Raycast(ray, out hitData, 1000))
+        {
+            worldPosition = hitData.point;
+        }
+
         Vector3 move = Vector3.zero;
         float speed = 8f;
         float running = 1f;
@@ -92,7 +106,7 @@ public class PlayerController : MonoBehaviour
             move = move - _player.transform.forward;
         }
 
-        if (Input.GetKey(KeyCode.R) )
+        if (Input.GetKey(KeyCode.R))
         {
             CharacterSelection.Respawn();
         }
@@ -114,7 +128,6 @@ public class PlayerController : MonoBehaviour
 
         Vector3 vel = Vector3.Normalize(move) * speed * running;
         _rigidBody.velocity = new Vector3(vel.x, _rigidBody.velocity.y, vel.z);
-
 
         if (move.magnitude > 0)
         {

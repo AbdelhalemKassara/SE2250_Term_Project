@@ -630,7 +630,7 @@ GameObject:
   - component: {fileID: 7305400229972399127}
   m_Layer: 0
   m_Name: Mercenary
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
